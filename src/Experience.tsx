@@ -1,5 +1,6 @@
-import { OrbitControls } from "@react-three/drei";
 import Ground from "./components/Ground/Ground";
+import Playground from "./components/playground/Playground.tsx";
+import {OrbitControls} from "@react-three/drei";
 
 
 const Experience = () => {
@@ -15,11 +16,11 @@ const Experience = () => {
 
             {/* Models */}
             <group>
-
+                <Playground position={[0, 0, 0]} />
             </group>
 
             {/* Floor */}
-            <Ground position-y={- 1} rotation-x={- Math.PI * 0.5} scale={10}/>
+            <Ground />
         </>
     )
 }

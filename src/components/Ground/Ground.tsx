@@ -1,22 +1,21 @@
-import { Mesh } from "three"
+import React from 'react'
+import { useGLTF } from '@react-three/drei'
 
-interface GroundProps {
-    color?: string
-    position?: [number, number, number] | number
-    scale?: [number, number, number] | number
-    rotation?: [number, number, number] | number
-    ref?: React.Ref<Mesh>
-    receiveShadow?: boolean
-    castShadow?: boolean
+export default function Ground(props) {
+    const { nodes } = useGLTF('/ground.glb')
+    return (
+        <group {...props} dispose={null}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.ground.geometry}
+                material={nodes.ground.material}
+                position={[0, 0, 0]}
+                rotation={[0, 0, 0]}
+                scale={1.316}
+            />
+        </group>
+    )
 }
 
-const Ground = ({color, ...props}: GroundProps) => {
-  return (
-     <mesh {...props}>
-        <planeGeometry />
-        <meshStandardMaterial color={color || "grey"} />
-    </mesh>
-  )
-}
-
-export default Ground
+useGLTF.preload('/ground.glb')
