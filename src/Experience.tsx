@@ -18,8 +18,10 @@ const Experience = () => {
             {/* Models */}
             <group>
                 {models.map((model) => {
-                    const vectorPosition = new THREE.Vector3();
-                   return <Playground key={model.id} model={model.path} position={vectorPosition.fromArray(model.position)} />
+                   const vectorPosition = new THREE.Vector3();
+                   const vectorRotation = new THREE.Vector3();
+
+                   return <Playground key={model.id} model={model.path} position={vectorPosition.fromArray(model.position)} rotation={vectorRotation.fromArray(model.rotation)} scale={model.scale} />
                 })}
             </group>
 
