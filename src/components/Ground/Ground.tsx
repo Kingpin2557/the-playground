@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei'
 export default function Ground() {
     const { nodes } = useGLTF('/ground.glb')
     return (
-        <group dispose={null}>
+        <group position={[0,0,0]} dispose={null}>
             <mesh
                 castShadow
                 receiveShadow

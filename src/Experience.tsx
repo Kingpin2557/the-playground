@@ -16,7 +16,7 @@ const Experience = () => {
 
             {/* Models */}
             <group>
-                <Playground position={[0, 0, 0]} />
+                <Playground model={"./seesaw.glb"} position={[2, 0, 1]} />
             </group>
 
             {/* Floor */}
