@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "path": "./seesaw.glb",
+    "position": [
+       0,
+       0,
+       0
+    ]
+  },
+  {
+    "id": 2,
+    "path": "./tireswing.glb",
+    "position": [
+       2,
+       0,
+       0
+    ]
+  },
+  {
+    "id": 3,
+    "path": "./climbhouse.glb",
+    "position": [
+       3,
+       0,
+       0
+    ]
+  }
+]

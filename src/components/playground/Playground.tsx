@@ -1,38 +1,39 @@
-import { useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei';
+import * as THREE from 'three'
 
 type Model = {
     model: string,
-    position: [number, number, number],
-    animation?: boolean
+    position: THREE.Vector3,
 }
 
 export default function Playground({model, position }:Model) {
     const { nodes } = useGLTF(model);
+    const arrNodes = Object.values(nodes);
     const [x, y, z] = position;
 
     let newY = y;
     newY += 0.015;
 
+
     return (
         <group position={[x, newY ,z]} rotation={[0, 0.984, 0]} scale={0.101}>
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Paal.geometry}
-                material={nodes.Paal.material}
-                position={[0.009, -0.228, -0.014]}
-                rotation={[-Math.PI, 0.983, -Math.PI]}
-                scale={0.057}
-            />
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Whip.geometry}
-                material={nodes.Whip.material}
-                position={[0.005, 0.579, -0.013]}
-                rotation={[-0.023, 0.591, 0.152]}
-                scale={0.079}
-            />
+            {arrNodes.map((node) => {
+                if (node.isMesh) {
+                    return (
+                        <mesh
+                            key={node.uuid}
+                            castShadow
+                            receiveShadow
+                            geometry={node.geometry}
+                            material={node.material}
+                            position={node.position}
+                            rotation={node.rotation}
+                            scale={node.scale}
+                        />
+                    );
+                }
+                return null;
+            })}
         </group>
     )
 }

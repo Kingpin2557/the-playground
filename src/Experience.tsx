@@ -1,10 +1,11 @@
 import Ground from "./components/Ground/Ground";
 import Playground from "./components/playground/Playground.tsx";
 import {OrbitControls} from "@react-three/drei";
+import models from "./assets/playgrounds.json";
+import * as THREE from "three";
 
 
 const Experience = () => {
-
     return (
         <>
             {/* Controls */}
@@ -16,7 +17,10 @@ const Experience = () => {
 
             {/* Models */}
             <group>
-                <Playground model={"./seesaw.glb"} position={[2, 0, 1]} />
+                {models.map((model) => {
+                    const vectorPosition = new THREE.Vector3();
+                   return <Playground key={model.id} model={model.path} position={vectorPosition.fromArray(model.position)} />
+                })}
             </group>
 
             {/* Floor */}
