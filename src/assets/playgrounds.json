@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "name": "Seesaw",
     "path": "./seesaw.glb",
     "position": [0, 0, 0],
     "rotation": [0, 0, 0],
@@ -8,6 +9,7 @@
   },
   {
     "id": 2,
+    "name": "Tireswing",
     "path": "./tireswing.glb",
     "position": [0.5, 0, 0],
     "rotation": [0, 0, 0],
@@ -15,6 +17,7 @@
   },
   {
     "id": 3,
+    "name": "Climbhouse",
     "path": "./climbhouse.glb",
     "position": [1, 0, 0],
     "rotation": [0, 0, 0],

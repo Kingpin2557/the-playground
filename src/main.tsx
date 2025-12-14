@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import {Canvas} from "@react-three/fiber";
 import Experience from './Experience.tsx';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 const cameraSettings = {
     fov: 45,
     near: 0.1,
@@ -13,8 +13,13 @@ const cameraSettings = {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <Canvas camera={cameraSettings}>
-          <Experience />
-      </Canvas>
+      <BrowserRouter>
+          <Canvas camera={cameraSettings}>
+              <Routes>
+                  <Route path="/" element={<Experience />} />
+                  <Route path="/:name" element={<Experience />} />
+              </Routes>
+          </Canvas>
+      </BrowserRouter>
   </StrictMode>,
 )
