@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist" # Or 'build', depending on your setup
+
+# Define the Redirects section
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 # This is the internal rewrite status
