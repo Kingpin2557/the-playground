@@ -4,7 +4,6 @@ import {OrbitControls} from "@react-three/drei";
 import models from "./assets/playgrounds.json";
 import * as THREE from "three";
 
-
 const Experience = () => {
     return (
         <>
