@@ -1,10 +1,9 @@
-import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export default function Ground(props) {
+export default function Ground() {
     const { nodes } = useGLTF('/ground.glb')
     return (
-        <group {...props} dispose={null}>
+        <group dispose={null}>
             <mesh
                 castShadow
                 receiveShadow
