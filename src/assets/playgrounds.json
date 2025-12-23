@@ -7,12 +7,11 @@
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
-      "position": [2,0,0],
-      "rotation": [0,0,0],
+      "position": [0, 1.5, 4],
       "fov": 45,
-      "near": 0.1,
-      "far": 200,
-      "zoom": [ 1, 1, 1]
+      "near": 4.27,
+      "far": 4.27,
+      "zoom": 20
     }
   },
   {
@@ -23,12 +22,11 @@
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
-      "position": [0,0,0],
-      "rotation": [2,0,0],
+      "position": [0.5, 1.5, 4],
       "fov": 45,
-      "near": 0.1,
-      "far": 200,
-      "zoom": [ 1, 1, 1]
+      "near": 4.27,
+      "far": 4.27,
+      "zoom": 20
     }
   },
   {
@@ -39,12 +37,11 @@
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
-      "position": [0,0,0],
-      "rotation": [2,0,0],
+      "position": [1, 1.5, 4],
       "fov": 45,
-      "near": 0.1,
-      "far": 200,
-      "zoom": [ 1, 1, 1]
+      "near": 4.27,
+      "far": 4.27,
+      "zoom": 20
     }
   }
 ]

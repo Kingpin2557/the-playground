@@ -11,6 +11,7 @@ function App() {
         rotation: [0, 0, 0] as [number, number, number]
     }
 
+
     return (
         <Canvas camera={cameraSettings}>
             <Routes>

@@ -1,54 +1,45 @@
-import  { useState, useEffect } from "react";
-import { OrbitControls } from "@react-three/drei";
-
-import models from "../assets/playgrounds.json";
+import {useCameraSync} from "../hooks/useCameraSync.ts";
+import {PerspectiveCamera} from "three";
 import * as THREE from "three";
 
-import {useLocation, useNavigate} from "react-router-dom";
-import { useThree } from "@react-three/fiber";
+import {useThree} from "@react-three/fiber";
+import {useNavigate} from "react-router-dom";
+import {OrbitControls} from "@react-three/drei";
 
-import Floor from "../components/floor/Floor.tsx";
 import Model from "../components/model/Model.tsx";
+import Floor from "../components/floor/Floor.tsx";
+
+import models from "../assets/playgrounds.json";
 
 function Experience() {
     const navigate = useNavigate();
-    const location = useLocation();
     const { camera } = useThree();
-    const [savedCamera, setSavedCamera] = useState({
-        position: new THREE.Vector3(0, 5, 10),
-        rotation: new THREE.Euler(0, 0, 0)
-    });
+    const pCamera = camera as PerspectiveCamera;
 
-    useEffect(() => {
-        if (savedCamera.position && savedCamera.rotation) {
-            camera.position.copy(savedCamera.position);
-            camera.rotation.copy(savedCamera.rotation);
-            camera.updateProjectionMatrix();
-        }
-    }, [camera, savedCamera]);
+    useCameraSync();
 
     const handleCameraClick = (modelName: string) => {
         const currentPos = {
-            position: camera.position.clone(),
-            rotation: camera.rotation.clone()
+            position: pCamera.position.clone(),
+            rotation: pCamera.rotation.clone(),
+            fov: pCamera.fov,
+            near: pCamera.near,
+            far: pCamera.far,
+            zoom: pCamera.zoom
         };
 
-        setSavedCamera(currentPos);
-
         navigate(`/${modelName.toLowerCase()}`, {
-            state: {
-                position: currentPos.position.toArray(),
-                rotation: [currentPos.rotation.x, currentPos.rotation.y, currentPos.rotation.z]
-            }
+            state: { currentPos }
         });
-
-        console.log(`Path has been updated to /${modelName.toLowerCase()}. Camera settings saved:`, location.state);
     }
 
     return (
         <>
-            <OrbitControls makeDefault />
-
+            <OrbitControls
+                makeDefault
+                enableDamping={true}
+                dampingFactor={0.05}
+            />
             <directionalLight position={[1, 2, 3]} intensity={4.5} />
             <ambientLight intensity={1} />
 
@@ -73,7 +64,7 @@ function Experience() {
 
             <Floor />
         </>
-    )
+    );
 }
 
 export default Experience;
