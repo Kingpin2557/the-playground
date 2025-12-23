@@ -1,21 +1,24 @@
 import  { useState, useEffect } from "react";
-import Ground from "../components/Ground/Ground.tsx";
-import Playground from "../components/playground/Playground.tsx";
 import { OrbitControls } from "@react-three/drei";
+
 import models from "../assets/playgrounds.json";
 import * as THREE from "three";
+
 import {useLocation, useNavigate} from "react-router-dom";
 import { useThree } from "@react-three/fiber";
 
-const Experience = () => {
+import Floor from "../components/floor/Floor.tsx";
+import Model from "../components/model/Model.tsx";
+
+function Experience() {
     const navigate = useNavigate();
     const location = useLocation();
-
     const { camera } = useThree();
     const [savedCamera, setSavedCamera] = useState({
         position: new THREE.Vector3(0, 5, 10),
         rotation: new THREE.Euler(0, 0, 0)
     });
+
     useEffect(() => {
         if (savedCamera.position && savedCamera.rotation) {
             camera.position.copy(savedCamera.position);
@@ -55,7 +58,7 @@ const Experience = () => {
                     const vectorRotation = new THREE.Vector3();
 
                     return (
-                        <Playground
+                        <Model
                             key={model.id}
                             model={model.path}
                             name={model.name}
@@ -68,7 +71,7 @@ const Experience = () => {
                 })}
             </group>
 
-            <Ground />
+            <Floor />
         </>
     )
 }

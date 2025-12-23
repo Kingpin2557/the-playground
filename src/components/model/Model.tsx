@@ -17,7 +17,7 @@ function isMesh(object: THREE.Object3D | THREE.Mesh): object is THREE.Mesh {
     return (object as THREE.Mesh).isMesh;
 }
 
-export default function Playground({model,name ,onCamera ,position, rotation, scale }:Model) {
+function Model({model,name ,onCamera ,position, rotation, scale }:Model) {
     const { nodes } = useGLTF(model);
 
     const [x, y, z] = position;
@@ -51,5 +51,7 @@ export default function Playground({model,name ,onCamera ,position, rotation, sc
         </group>
     )
 }
+
+export default Model;
 
 // useGLTF.preload(modelPath)
