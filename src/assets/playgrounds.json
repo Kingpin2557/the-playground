@@ -5,7 +5,15 @@
     "path": "./seesaw.glb",
     "position": [0, 0, 0],
     "rotation": [0, 0, 0],
-    "scale": 0.1
+    "scale": 0.1,
+    "cameraSettings": {
+      "position": [2,0,0],
+      "rotation": [0,0,0],
+      "fov": 45,
+      "near": 0.1,
+      "far": 200,
+      "zoom": [ 1, 1, 1]
+    }
   },
   {
     "id": 2,
@@ -13,7 +21,15 @@
     "path": "./tireswing.glb",
     "position": [0.5, 0, 0],
     "rotation": [0, 0, 0],
-    "scale": 0.1
+    "scale": 0.1,
+    "cameraSettings": {
+      "position": [0,0,0],
+      "rotation": [2,0,0],
+      "fov": 45,
+      "near": 0.1,
+      "far": 200,
+      "zoom": [ 1, 1, 1]
+    }
   },
   {
     "id": 3,
@@ -21,6 +37,14 @@
     "path": "./climbhouse.glb",
     "position": [1, 0, 0],
     "rotation": [0, 0, 0],
-    "scale": 0.1
+    "scale": 0.1,
+    "cameraSettings": {
+      "position": [0,0,0],
+      "rotation": [2,0,0],
+      "fov": 45,
+      "near": 0.1,
+      "far": 200,
+      "zoom": [ 1, 1, 1]
+    }
   }
 ]

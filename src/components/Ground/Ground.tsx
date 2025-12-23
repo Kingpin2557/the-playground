@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei';
 import * as THREE from "three";
 
 export default function Ground() {
-    const { nodes } = useGLTF('/ground.glb')
+    const { nodes } = useGLTF('./ground.glb')
     const groundMesh = nodes.ground as THREE.Mesh;
     return (
         <group position={[0,0,0]} dispose={null}>
@@ -19,4 +19,4 @@ export default function Ground() {
     )
 }
 
-useGLTF.preload('/ground.glb')
+useGLTF.preload('./ground.glb')

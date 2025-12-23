@@ -1,14 +1,15 @@
-import { useGLTF } from '@react-three/drei';
+import {Html, useGLTF} from '@react-three/drei';
 import * as THREE from 'three'
-import type {ThreeEvent} from "@react-three/fiber";
+import React, {type MouseEventHandler} from "react";
 
-type ClickHandler = (event: ThreeEvent<THREE.Mesh>) => void;
+
 type Model = {
     model: string,
-    onClick: ClickHandler,
+    name: string,
+    onCamera: MouseEventHandler,
     position: THREE.Vector3,
     rotation: THREE.Vector3,
-    scale: number
+    scale: number,
 }
 
 //AI generated function, .filter() also with AI. everything else is my own work
@@ -16,27 +17,36 @@ function isMesh(object: THREE.Object3D | THREE.Mesh): object is THREE.Mesh {
     return (object as THREE.Mesh).isMesh;
 }
 
-export default function Playground({model, onClick ,position, rotation, scale }:Model) {
+export default function Playground({model,name ,onCamera ,position, rotation, scale }:Model) {
     const { nodes } = useGLTF(model);
-    const arrNodes = Object.values(nodes);
+
     const [x, y, z] = position;
     const [rx, ry, rz] = rotation;
 
+
+
     return (
-        <group position={[x, y + 0.015 ,z]} rotation={[rx, ry, rz]} scale={scale} onClick={ onClick }>
-            {arrNodes.filter(isMesh).map((node) => {
+        <group position={[x, y + 0.015, z]} rotation={[rx, ry, rz]} scale={scale}>
+            {Object.values(nodes).filter(isMesh).map((node) => {
                 return (
-                    <mesh
-                        key={node.uuid}
-                        castShadow
-                        receiveShadow
-                        geometry={node.geometry}
-                        material={node.material}
-                        position={node.position}
-                        rotation={node.rotation}
-                        scale={node.scale}
-                    />
-                );
+                    <React.Fragment key={node.uuid}>
+                        <Html position={[x - 1, y + 3, z]}>
+                            <p onClick={onCamera}>
+                                {name}
+                            </p>
+                            <span></span>
+                        </Html>
+                        <mesh
+                            castShadow
+                            receiveShadow
+                            geometry={node.geometry}
+                            material={node.material}
+                            position={node.position}
+                            rotation={node.rotation}
+                            scale={node.scale}
+                        />
+                    </React.Fragment>
+                )
             })}
         </group>
     )
