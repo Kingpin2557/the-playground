@@ -9,8 +9,8 @@
     "cameraSettings": {
       "position": [0, 1.5, 4],
       "fov": 45,
-      "near": 4.27,
-      "far": 4.27,
+      "near": 0.1,
+      "far": 100,
       "zoom": 20
     }
   },
@@ -24,8 +24,8 @@
     "cameraSettings": {
       "position": [0.5, 1.5, 4],
       "fov": 45,
-      "near": 4.27,
-      "far": 4.27,
+      "near": 0.1,
+      "far": 100,
       "zoom": 20
     }
   },
@@ -39,8 +39,8 @@
     "cameraSettings": {
       "position": [1, 1.5, 4],
       "fov": 45,
-      "near": 4.27,
-      "far": 4.27,
+      "near": 0.1,
+      "far": 100,
       "zoom": 20
     }
   }

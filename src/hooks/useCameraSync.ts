@@ -9,16 +9,19 @@ import models from "../assets/playgrounds.json";
 export function useCameraSync() {
     const { name } = useParams();
     const { camera, controls } = useThree();
-    const {state} = useLocation();
+    const { state } = useLocation();
     console.log(state);
 
-    const model = models.find(m => m.name.toLowerCase() === name?.toLowerCase());
+    const model = models.find(
+        model => model.name.toLowerCase() === name?.toLowerCase()
+    );
 
     useEffect(() => {
-        if (!model || !camera || !controls) return;
+        if (!camera || !controls) return;
 
         const orbit = controls as OrbitControlsImpl;
 
+        // No model → restore free camera
         if (!model) {
             gsap.to(orbit, {
                 minDistance: 0,
@@ -31,44 +34,54 @@ export function useCameraSync() {
             return;
         }
 
-        // Define our target vectors
-        const targetPos = new THREE.Vector3().fromArray(model.position);
-        const cameraTargetPos = new THREE.Vector3().fromArray(model.cameraSettings.position);
+        const { position, fov, near, far, zoom } = model.cameraSettings;
 
-        // Kill any ongoing animations to prevent conflicts
+        const targetPos = new THREE.Vector3().fromArray(model.position);
+        const cameraTargetPos = new THREE.Vector3().fromArray(position);
+
+        // Kill running tweens
         gsap.killTweensOf(camera.position);
+        gsap.killTweensOf(camera);
         gsap.killTweensOf(orbit.target);
 
-        // Animate Camera Position
+        // Camera position animation
         gsap.to(camera.position, {
             x: cameraTargetPos.x,
             y: cameraTargetPos.y,
             z: cameraTargetPos.z,
             duration: 1.5,
-            ease: "power3.inOut",
+            ease: "power3.inOut"
         });
 
-        // Animate OrbitControls Target (locks the view to the model)
+        // Camera lens animation
+        gsap.to(camera, {
+            fov,
+            near,
+            far,
+            zoom,
+            duration: 1.5,
+            ease: "power3.inOut",
+            onUpdate: () => {
+                camera.updateProjectionMatrix();
+            }
+        });
+
+        // OrbitControls target animation
         gsap.to(orbit.target, {
             x: targetPos.x,
             y: targetPos.y,
             z: targetPos.z,
             duration: 1.5,
             ease: "power3.inOut",
-            onUpdate: () => {
-                orbit.update();
-            },
+            onUpdate: () => orbit.update(),
             onComplete: () => {
-                // Apply constraints after the transition is finished
                 orbit.minDistance = 2;
                 orbit.maxDistance = 15;
                 orbit.minPolarAngle = Math.PI / 4;
                 orbit.maxPolarAngle = Math.PI / 2.1;
-                orbit.enablePan = false; // Optional: disable panning to keep it "locked"
+                orbit.enablePan = false;
             }
         });
 
     }, [model, camera, controls]);
-
-    return state.currentPos;
 }

@@ -4,12 +4,12 @@ import Experience from "./views/Experience.tsx";
 
 function App() {
     const cameraSettings = {
-        fov: 45,
+        fov: 50,
         near: 0.1,
-        far: 200,
-        position: [ 0, 6, 2 ] as [number, number, number],
+        far: 5000,
+        position: [0, 8, 10] as [number, number, number],
         rotation: [0, 0, 0] as [number, number, number]
-    }
+    };
 
 
     return (
