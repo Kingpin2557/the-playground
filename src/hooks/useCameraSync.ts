@@ -1,87 +1,85 @@
-import {useLocation, useParams} from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useThree } from "@react-three/fiber";
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 import gsap from "gsap";
 import models from "../assets/playgrounds.json";
+import * as React from "react";
 
-export function useCameraSync() {
+interface CameraState {
+    currentPos?: {
+        position: THREE.Vector3;
+        target: THREE.Vector3;
+        zoom: number;
+        fov: number;
+        near: number;
+        far: number;
+    };
+    modelPosition?: THREE.Vector3;
+}
+
+export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | null> }) {
     const { name } = useParams();
     const { camera, controls } = useThree();
-    const { state } = useLocation();
-    console.log(state);
+    const location = useLocation();
+    const state = location.state as CameraState;
 
     const model = models.find(
-        model => model.name.toLowerCase() === name?.toLowerCase()
+        (m) => m.name.toLowerCase() === name?.toLowerCase()
     );
 
     useEffect(() => {
-        if (!camera || !controls) return;
-
+        if (!controls || !camera) return;
         const orbit = controls as OrbitControlsImpl;
+        const pCamera = camera as THREE.PerspectiveCamera;
 
-        // No model → restore free camera
-        if (!model) {
-            gsap.to(orbit, {
-                minDistance: 0,
-                maxDistance: Infinity,
-                minPolarAngle: 0,
-                maxPolarAngle: Math.PI,
-                enablePan: true,
-                duration: 0.5
+        if (model && scene.current) {
+            const targetGroup = scene.current;
+        
+            const box = new THREE.Box3().setFromObject(targetGroup);
+            const center = new THREE.Vector3();
+            box.getCenter(center);
+
+            // 2. Haal instellingen en offset uit de JSON
+            const { fov, near, far, zoom, offset } = model.cameraSettings;
+
+            // 3. Bereken de gewenste camerapositie (middelpunt + offset)
+            const targetCameraPos = new THREE.Vector3(
+                center.x + offset[0],
+                center.y + offset[1],
+                center.z + offset[2]
+            );
+
+            // Animeer OrbitControls target naar het middelpunt
+            gsap.to(orbit.target, {
+                x: center.x,
+                y: center.y,
+                z: center.z,
+                duration: 1.5,
+                ease: "power3.inOut",
+                onUpdate: () => orbit.update(),
             });
-            return;
+
+            // Animeer de camerapositie naar middelpunt + offset
+            gsap.to(pCamera.position, {
+                x: targetCameraPos.x,
+                y: targetCameraPos.y,
+                z: targetCameraPos.z,
+                duration: 1.5,
+                ease: "power3.inOut",
+            });
+
+            // Animeer de lens-instellingen
+            gsap.to(pCamera, {
+                fov,
+                near,
+                far,
+                zoom,
+                duration: 1.5,
+                ease: "power3.inOut",
+                onUpdate: () => pCamera.updateProjectionMatrix(),
+            });
         }
-
-        const { position, fov, near, far, zoom } = model.cameraSettings;
-
-        const targetPos = new THREE.Vector3().fromArray(model.position);
-        const cameraTargetPos = new THREE.Vector3().fromArray(position);
-
-        // Kill running tweens
-        gsap.killTweensOf(camera.position);
-        gsap.killTweensOf(camera);
-        gsap.killTweensOf(orbit.target);
-
-        // Camera position animation
-        gsap.to(camera.position, {
-            x: cameraTargetPos.x,
-            y: cameraTargetPos.y,
-            z: cameraTargetPos.z,
-            duration: 1.5,
-            ease: "power3.inOut"
-        });
-
-        // Camera lens animation
-        gsap.to(camera, {
-            fov,
-            near,
-            far,
-            zoom,
-            duration: 1.5,
-            ease: "power3.inOut",
-            onUpdate: () => {
-                camera.updateProjectionMatrix();
-            }
-        });
-
-        // OrbitControls target animation
-        gsap.to(orbit.target, {
-            x: targetPos.x,
-            y: targetPos.y,
-            z: targetPos.z,
-            duration: 1.5,
-            ease: "power3.inOut",
-            onUpdate: () => orbit.update(),
-            onComplete: () => {
-                orbit.minDistance = 2;
-                orbit.maxDistance = 15;
-                orbit.minPolarAngle = Math.PI / 4;
-                orbit.maxPolarAngle = Math.PI / 2.1;
-                orbit.enablePan = false;
-            }
-        });
-
-    }, [model, camera, controls]);
+    }, [model, controls, camera, state, scene]);
 }

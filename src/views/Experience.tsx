@@ -1,9 +1,8 @@
-import {useCameraSync} from "../hooks/useCameraSync.ts";
 import {PerspectiveCamera} from "three";
 import * as THREE from "three";
 
 import {useThree} from "@react-three/fiber";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {OrbitControls} from "@react-three/drei";
 import { useRef } from "react";
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -13,16 +12,22 @@ import Model from "../components/model/Model.tsx";
 import Floor from "../components/floor/Floor.tsx";
 
 import models from "../assets/playgrounds.json";
+import {useCameraSync} from "../hooks/useCameraSync.ts";
 
 function Experience() {
     const navigate = useNavigate();
+    const { name } = useParams(); // Zorg dat name beschikbaar is voor de vergelijking
     const orbitRef = useRef<OrbitControlsImpl | null>(null);
+    const selectedModelRef = useRef<THREE.Group | null>(null);
+
+    // Geef de ref door aan de hook
+    useCameraSync({ scene: selectedModelRef });
+
     const { camera } = useThree();
     const pCamera = camera as PerspectiveCamera;
 
-    useCameraSync();
 
-    const saveCameraSettings = (modelName: string) => {
+    const saveSettings = (modelName: string) => {
         if (!orbitRef.current) return;
 
         const currentPos = {
@@ -36,7 +41,7 @@ function Experience() {
         };
 
         navigate(`/${modelName.toLowerCase()}`, {
-            state: { currentPos }
+            state: {currentPos}
         });
     };
 
@@ -54,18 +59,21 @@ function Experience() {
 
             <group>
                 {models.map((model) => {
-                    const vectorPosition = new THREE.Vector3();
-                    const vectorRotation = new THREE.Vector3();
+                    const vectorPosition = new THREE.Vector3().fromArray(model.position);
+                    const vectorRotation = new THREE.Vector3().fromArray(model.rotation);
+                    const isSelected = model.name.toLowerCase() === name?.toLowerCase();
 
                     return (
                         <Model
                             key={model.id}
                             model={model.path}
                             name={model.name}
-                            onCamera={() => saveCameraSettings(model.name)}
-                            position={vectorPosition.fromArray(model.position)}
-                            rotation={vectorRotation.fromArray(model.rotation)}
+                            onCamera={() => saveSettings(model.name)}
+                            position={vectorPosition}
+                            rotation={vectorRotation}
                             scale={model.scale}
+                            // Geef de ref alleen door aan het geselecteerde model
+                            groupRef={isSelected ? selectedModelRef : undefined}
                         />
                     )
                 })}

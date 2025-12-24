@@ -4,9 +4,9 @@ import Experience from "./views/Experience.tsx";
 
 function App() {
     const cameraSettings = {
-        fov: 50,
+        fov: 45,
         near: 0.1,
-        far: 5000,
+        far: 1000,
         position: [0, 8, 10] as [number, number, number],
         rotation: [0, 0, 0] as [number, number, number]
     };
