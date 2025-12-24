@@ -7,11 +7,11 @@
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
-      "position": [0, 1.5, 4],
+      "position": [0, 1.5, 5],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 15
+      "zoom": 10
     }
   },
   {
@@ -22,7 +22,7 @@
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
-      "position": [0.5, 1.5, 4],
+      "position": [3, 1, 5],
       "fov": 45,
       "near": 0.1,
       "far": 100,
@@ -37,11 +37,11 @@
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
-      "position": [1, 1.5, 4],
+      "position": [4, 2, 4],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 15
+      "zoom": 10
     }
   }
 ]

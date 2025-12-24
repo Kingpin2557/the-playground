@@ -1,7 +1,7 @@
 import {Html, useGLTF} from '@react-three/drei';
 import * as THREE from 'three'
 import React, {type MouseEventHandler} from "react";
-
+import styles from "./Model.module.css";
 
 type Model = {
     model: string,
@@ -23,18 +23,17 @@ function Model({model,name ,onCamera ,position, rotation, scale }:Model) {
     const [x, y, z] = position;
     const [rx, ry, rz] = rotation;
 
-
-
     return (
         <group position={[x, y + 0.015, z]} rotation={[rx, ry, rz]} scale={scale}>
             {Object.values(nodes).filter(isMesh).map((node) => {
                 return (
                     <React.Fragment key={node.uuid}>
                         <Html position={[x - 1, y + 3, z]}>
-                            <p onClick={onCamera}>
-                                {name}
-                            </p>
-                            <span></span>
+                            <div className={styles.tag}>
+                                <p onClick={onCamera}>
+                                    {name}
+                                </p>
+                            </div>
                         </Html>
                         <mesh
                             castShadow
