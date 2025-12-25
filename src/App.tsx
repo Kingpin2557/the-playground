@@ -1,25 +1,26 @@
-import {Canvas} from "@react-three/fiber";
-import {Route, Routes} from "react-router-dom";
+import { Canvas } from "@react-three/fiber";
+import { Route, Routes } from "react-router-dom";
 import Experience from "./views/Experience.tsx";
+import { useCameraStore } from "./store/useCameraStore.ts"; // Import the store hook
 
 function App() {
-    const cameraSettings = {
-        fov: 45,
-        near: 0.1,
-        far: 1000,
-        position: [0, 8, 10] as [number, number, number],
-        rotation: [0, 0, 0] as [number, number, number]
-    };
-
+    const defaultSettings = useCameraStore((state) => state.defaultSettings);
 
     return (
-        <Canvas camera={cameraSettings}>
+        <Canvas
+            camera={{
+                fov: defaultSettings.fov,
+                near: defaultSettings.near,
+                far: defaultSettings.far,
+                position: defaultSettings.position
+            }}
+        >
             <Routes>
                 <Route path="/" element={<Experience />} />
                 <Route path="/:name" element={<Experience />} />
             </Routes>
         </Canvas>
-    )
+    );
 }
 
 export default App;

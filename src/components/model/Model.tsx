@@ -28,11 +28,9 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
     
 
     return (
-        <group ref={ref} position={position} rotation={[rotation.x, rotation.y, rotation.z]} scale={scale}>
+        <group ref={ref} position={[position.x, position.y, position.z]} rotation={[rotation.x, rotation.y, rotation.z]} scale={scale}>
             {/* Render each mesh individually */}
             {scene.children.map((child, index) => {
-
-
                 if (isMesh(child)) {
                     return (
                         <mesh
@@ -57,7 +55,6 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
                 }
                 return null;
             })}
-
         </group>
     );
 }

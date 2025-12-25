@@ -6,6 +6,7 @@ import * as THREE from "three";
 import gsap from "gsap";
 import models from "../assets/playgrounds.json";
 import * as React from "react";
+import { useCameraStore } from "../store/useCameraStore.ts";
 
 interface CameraState {
     currentPos?: {
@@ -25,8 +26,11 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
     const location = useLocation();
     const state = location.state as CameraState;
 
+    // Proper Zustand store integration
+    const defaultSettings = useCameraStore((state) => state.defaultSettings);
+
     const model = models.find(
-        (m) => m.name.toLowerCase() === name?.toLowerCase()
+        (model) => model.name.toLowerCase() === name?.toLowerCase()
     );
 
     useEffect(() => {
@@ -36,22 +40,29 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
 
         if (model && scene.current) {
             const targetGroup = scene.current;
-        
             const box = new THREE.Box3().setFromObject(targetGroup);
             const center = new THREE.Vector3();
             box.getCenter(center);
 
-            // 2. Haal instellingen en offset uit de JSON
             const { fov, near, far, zoom, offset } = model.cameraSettings;
 
-            // 3. Bereken de gewenste camerapositie (middelpunt + offset)
             const targetCameraPos = new THREE.Vector3(
                 center.x + offset[0],
                 center.y + offset[1],
                 center.z + offset[2]
             );
 
-            // Animeer OrbitControls target naar het middelpunt
+            const minRad = THREE.MathUtils.degToRad(40);
+            const maxRad = THREE.MathUtils.degToRad(90);
+
+            gsap.to(orbit, {
+                minPolarAngle: minRad,
+                maxPolarAngle: maxRad,
+                enableZoom: false,
+                duration: 1.5,
+                ease: "power3.inOut",
+            });
+
             gsap.to(orbit.target, {
                 x: center.x,
                 y: center.y,
@@ -61,7 +72,6 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
                 onUpdate: () => orbit.update(),
             });
 
-            // Animeer de camerapositie naar middelpunt + offset
             gsap.to(pCamera.position, {
                 x: targetCameraPos.x,
                 y: targetCameraPos.y,
@@ -70,7 +80,6 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
                 ease: "power3.inOut",
             });
 
-            // Animeer de lens-instellingen
             gsap.to(pCamera, {
                 fov,
                 near,
@@ -80,6 +89,42 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
                 ease: "power3.inOut",
                 onUpdate: () => pCamera.updateProjectionMatrix(),
             });
+        } else {
+            // FALLBACK: Animate to defaultSettings from Zustand Store
+            gsap.to(orbit, {
+                minPolarAngle: 0,
+                maxPolarAngle: Math.PI,
+                enableZoom: true,
+                duration: 1.5,
+                ease: "power3.inOut",
+            });
+
+            gsap.to(orbit.target, {
+                x: defaultSettings.target[0],
+                y: defaultSettings.target[1],
+                z: defaultSettings.target[2],
+                duration: 1.5,
+                ease: "power3.inOut",
+                onUpdate: () => orbit.update(),
+            });
+
+            gsap.to(pCamera.position, {
+                x: defaultSettings.position[0],
+                y: defaultSettings.position[1],
+                z: defaultSettings.position[2],
+                duration: 1.5,
+                ease: "power3.inOut",
+            });
+
+            gsap.to(pCamera, {
+                fov: defaultSettings.fov,
+                near: defaultSettings.near,
+                far: defaultSettings.far,
+                zoom: 1,
+                duration: 1.5,
+                ease: "power3.inOut",
+                onUpdate: () => pCamera.updateProjectionMatrix(),
+            });
         }
-    }, [model, controls, camera, state, scene]);
+    }, [model, controls, camera, state, scene, defaultSettings]);
 }

@@ -72,7 +72,6 @@ function Experience() {
                             position={vectorPosition}
                             rotation={vectorRotation}
                             scale={model.scale}
-                            // Geef de ref alleen door aan het geselecteerde model
                             groupRef={isSelected ? selectedModelRef : undefined}
                         />
                     )
