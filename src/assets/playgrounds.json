@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Seesaw",
     "path": "./seesaw.glb",
-    "position": [1, 0, 0],
+    "position": [0, -0.01, 0],
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
@@ -18,7 +18,7 @@
     "id": 2,
     "name": "Tireswing",
     "path": "./tireswing.glb",
-    "position": [1.5, 0, 0],
+    "position": [1.5, -0.01, 0],
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
@@ -33,7 +33,7 @@
     "id": 3,
     "name": "Climbhouse",
     "path": "./climbhouse.glb",
-    "position": [2, 0, 0],
+    "position": [2, -0.01, 0],
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
