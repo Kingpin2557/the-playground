@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Seesaw",
     "path": "./seesaw.glb",
-    "position": [0, -0.01, 0],
+    "position": [1, -0.01, 0],
     "rotation": [0, 0, 0],
     "scale": 0.1,
     "cameraSettings": {
