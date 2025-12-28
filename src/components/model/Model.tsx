@@ -50,12 +50,20 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
-
-
     const bottomOffset = box.min.y;
+
+    // Set a constant height for all tags (e.g., 3 units above the floor)
+    const tagHeight = 1;
 
     return (
         <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
+
+            <Html position={[0, tagHeight, 0]} center>
+                <div className={styles.tag}>
+                    <p onClick={onCamera}>{name}</p>
+                </div>
+            </Html>
+
             <group
                 rotation={[rotation.x, controls.rotY, rotation.z]}
                 scale={controls.scale}
@@ -68,15 +76,8 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
                         receiveShadow
                     />
                 </group>
-
-                <Html position={[0, (box.max.y - bottomOffset) + 2, 0]} center>
-                    <div className={styles.tag}>
-                        <p onClick={onCamera}>{name}</p>
-                    </div>
-                </Html>
             </group>
         </group>
     );
 }
-
 export default Model;
