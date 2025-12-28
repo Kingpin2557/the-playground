@@ -25,37 +25,42 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
             value: { x: position.x, y: position.y, z: position.z },
             step: 0.1,
         },
-        rot: {
-            value: { x: rotation.x, y: rotation.y, z: rotation.z },
+        rotY: {
+            value: rotation.y,
             step: 0.01,
         },
-        modelScale: { value: scale, min: 0.1, max: 10, step: 0.01 },
+        scale: {
+            value: scale,
+            min: 0.1,
+            max: 10,
+            step: 0.01
+        },
         "Log Values": button((get) => {
             const p = get(`${name}.pos`);
-            const r = get(`${name}.rot`);
-            const s = get(`${name}.modelScale`);
+            const ry = get(`${name}.rotY`);
+            const s = get(`${name}.scale`);
 
             console.log(`-- ${name} --`);
             console.log(`position: [${p.x.toFixed(2)}, ${p.y.toFixed(2)}, ${p.z.toFixed(2)}]`);
-            console.log(`rotation: [${r.x.toFixed(2)}, ${r.y.toFixed(2)}, ${r.z.toFixed(2)}]`);
+            console.log(`rotation: [${rotation.x.toFixed(2)}, ${ry.toFixed(2)}, ${rotation.z.toFixed(2)}]`);
             console.log(`scale: ${s}`);
         })
     }));
 
-    // Calculate center for pivoting
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
 
+
+    const bottomOffset = box.min.y;
+
     return (
         <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
-            {/* 1. Pivot Group: This handles Rotation and Scale around the center */}
             <group
-                rotation={[controls.rot.x, controls.rot.y, controls.rot.z]}
-                scale={controls.modelScale}
+                rotation={[rotation.x, controls.rotY, rotation.z]}
+                scale={controls.scale}
             >
-                {/* 2. Offset Group: Moves the model so its center is at the Pivot's [0,0,0] */}
-                <group position={[-center.x, -center.y, -center.z]}>
+                <group position={[-center.x, -bottomOffset, -center.z]}>
                     <Clone
                         ref={ref}
                         object={scene}
@@ -64,8 +69,7 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
                     />
                 </group>
 
-                {/* Tag stays relative to the pivot center */}
-                <Html position={[0, center.y + 2, 0]} center>
+                <Html position={[0, (box.max.y - bottomOffset) + 2, 0]} center>
                     <div className={styles.tag}>
                         <p onClick={onCamera}>{name}</p>
                     </div>
