@@ -13,7 +13,7 @@ import * as THREE from "three";
                 material={groundMesh.material}
                 position={[0, 0, 0]}
                 rotation={[0, 0, 0]}
-                scale={1.316}
+                scale={1}
             />
         </group>
     )
