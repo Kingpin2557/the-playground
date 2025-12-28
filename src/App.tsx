@@ -2,7 +2,8 @@ import { Canvas } from "@react-three/fiber";
 import { Route, Routes } from "react-router-dom";
 import Experience from "./views/Experience.tsx";
 import { useCameraStore } from "./store/useCameraStore.ts";
-import {Leva} from "leva"; // Import the store hook
+import {Leva} from "leva";
+import {CameraHelper} from "./components/CameraHelper.tsx"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
@@ -14,7 +15,7 @@ function App() {
 
     return (
         <>
-            <Leva hidden={true}/>
+            <Leva hidden={false}/>
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/" element={<Experience />} />
                     <Route path="/:name" element={<Experience />} />
                 </Routes>
+                <CameraHelper />
             </Canvas>
         </>
     );
