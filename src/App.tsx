@@ -14,8 +14,7 @@ function App() {
 
     return (
         <>
-            <Leva hidden={isProduction} />
-
+            {!isProduction && <Leva />}
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,
