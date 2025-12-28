@@ -6,7 +6,7 @@ import {Leva} from "leva"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
-    const isProduction = import.meta.env.VITE_IS_PRODUCTION === true;
+    // const isProduction = import.meta.env.VITE_IS_PRODUCTION === true;
 
 
     console.log("Is Production String:", import.meta.env.VITE_IS_PRODUCTION);
@@ -14,7 +14,7 @@ function App() {
 
     return (
         <>
-            {!isProduction && <Leva />}
+            <Leva hidden={true}/>
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,
