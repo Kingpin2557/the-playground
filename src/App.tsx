@@ -7,15 +7,11 @@ import {CameraHelper} from "./components/CameraHelper.tsx"; // Import the store 
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
-    // const isProduction = import.meta.env.VITE_IS_PRODUCTION === true;
 
-
-    console.log("Is Production String:", import.meta.env.VITE_IS_PRODUCTION);
-    console.log("Is Production Boolean:", import.meta.env.VITE_IS_PRODUCTION === 'true');
 
     return (
         <>
-            <Leva hidden={false}/>
+            <Leva hidden={true}/>
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,
