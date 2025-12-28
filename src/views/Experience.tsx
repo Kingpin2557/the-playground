@@ -45,6 +45,7 @@ function Experience() {
         });
     };
 
+    // const isProduction = import.meta.env.VITE_IS_PRODUCTION === 'true';
 
     return (
         <>
