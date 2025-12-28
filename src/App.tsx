@@ -9,6 +9,9 @@ function App() {
     const isProduction = import.meta.env.VITE_IS_PRODUCTION === true;
 
 
+    console.log("Is Production String:", import.meta.env.VITE_IS_PRODUCTION);
+    console.log("Is Production Boolean:", import.meta.env.VITE_IS_PRODUCTION === 'true');
+
     return (
         <>
             <Leva hidden={isProduction} />
