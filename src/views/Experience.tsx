@@ -6,7 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {OrbitControls} from "@react-three/drei";
 import { useRef } from "react";
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-
+import CameraLogger from "../components/CameraLogger.tsx"
 
 import Model from "../components/model/Model.tsx";
 import Floor from "../components/floor/Floor.tsx";
@@ -25,7 +25,7 @@ function Experience() {
 
     const { camera } = useThree();
     const pCamera = camera as PerspectiveCamera;
-
+    console.log(camera);
 
     const saveSettings = (modelName: string) => {
         if (!orbitRef.current) return;
@@ -49,6 +49,7 @@ function Experience() {
 
     return (
         <>
+            <CameraLogger/>
             <OrbitControls
                 ref={orbitRef}
                 makeDefault

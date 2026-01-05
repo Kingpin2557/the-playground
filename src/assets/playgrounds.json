@@ -3,60 +3,60 @@
     "id": 1,
     "name": "Seesaw",
     "path": "./seesaw/seesaw.glb",
-    "position": [-0.80, 0, -1.40],
+    "position": [-2.00, 0.00, -3.40],
     "rotation": [0.00, 0.74, 0.00],
-    "scale": 1,
+    "scale": 3.22,
     "cameraSettings": {
       "offset": [5, 0.8, 3],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 15
+      "zoom": 5
     }
   },
   {
     "id": 2,
     "name": "Tireswing",
     "path": "./tireswing/tireswing.glb",
-    "position": [-0.70, 0, -0.50],
-    "rotation": [0.00, 0.73, 0.00],
-    "scale": 1,
+    "position": [-2.20, 0.00, -1.40],
+    "rotation": [0.00, 2.70, 0.00],
+    "scale": 2.04,
     "cameraSettings": {
       "offset": [4, 0.3, 2],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 10
+      "zoom": 5
     }
   },
   {
     "id": 3,
     "name": "Climbhouse",
     "path": "./climbhouse/climbhouse.glb",
-    "position": [1.00, 0, -1.10],
+    "position": [1.40, 0.00, -2.30],
     "rotation": [0.00, 0.22, 0.00],
-    "scale": 1,
+    "scale": 1.62,
     "cameraSettings": {
       "offset": [-2, 0.3, 2],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 2
+      "zoom": 1
     }
   },
   {
     "id": 4,
     "name": "Football field",
     "path": "./goal/goal.glb",
-    "position": [0.20, 0, 1.30],
-    "rotation": [0.00, -0.01, 0.00],
-    "scale": 0.5700000000000001,
+    "position": [-0.00, 0.00, 2.50],
+    "rotation": [0.00, -0.03, 0.00],
+    "scale": 1.06,
     "cameraSettings": {
       "offset": [-2, 0.5, -2],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 2
+      "zoom": 1
     }
   }
 ]
