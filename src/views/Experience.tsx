@@ -77,9 +77,8 @@ function Experience() {
                         />
                     )
                 })}
+                <Floor />
             </group>
-
-            <Floor />
         </>
     );
 }

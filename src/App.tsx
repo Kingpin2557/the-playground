@@ -11,7 +11,7 @@ function App() {
 
     return (
         <>
-            <Leva hidden={true}/>
+            <Leva hidden={false}/>
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,
