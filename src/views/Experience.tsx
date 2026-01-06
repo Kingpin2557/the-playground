@@ -25,7 +25,6 @@ function Experience() {
 
     const { camera } = useThree();
     const pCamera = camera as PerspectiveCamera;
-    console.log(camera);
 
     const saveSettings = (modelName: string) => {
         if (!orbitRef.current) return;
@@ -55,6 +54,7 @@ function Experience() {
                 makeDefault
                 enableDamping
                 dampingFactor={0.05}
+                enableZoom={!name}
             />
             <directionalLight position={[1, 2, 3]} intensity={4.5} />
             <ambientLight intensity={1} />

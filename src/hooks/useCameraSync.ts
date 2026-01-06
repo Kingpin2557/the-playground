@@ -38,9 +38,16 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
         const orbit = controls as OrbitControlsImpl;
         const pCamera = camera as THREE.PerspectiveCamera;
 
+
+
         if (model && scene.current) {
-            const targetGroup = scene.current;
-            const box = new THREE.Box3().setFromObject(targetGroup);
+            // eslint-disable-next-line react-hooks/immutability
+            orbit.enableRotate = true;
+            // eslint-disable-next-line react-hooks/immutability
+            orbit.enablePan = false;
+
+
+            const box = new THREE.Box3().setFromObject(scene.current);
             const center = new THREE.Vector3();
             box.getCenter(center);
 
@@ -90,11 +97,14 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
                 onUpdate: () => pCamera.updateProjectionMatrix(),
             });
         } else {
-            // FALLBACK: Animate to defaultSettings from Zustand Store
+            // DEFAULT SETTINGS (op de root pagina)
+            orbit.enableRotate = false;
+            orbit.enablePan = true;
+            orbit.enableZoom = true;
+
             gsap.to(orbit, {
                 minPolarAngle: 0,
                 maxPolarAngle: Math.PI,
-                enableZoom: true,
                 duration: 1.5,
                 ease: "power3.inOut",
             });

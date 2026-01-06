@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { type MouseEventHandler, useRef } from "react";
 import styles from "./Model.module.css";
 import * as React from "react";
+import { useParams } from "react-router-dom";
 
 type ModelProps = {
     model: string;
@@ -17,8 +18,12 @@ type ModelProps = {
 
 function Model({ model, name, onCamera, position, rotation, scale, groupRef }: ModelProps) {
     const { scene } = useGLTF(model);
+    const { name: urlName } = useParams();
+    
     const internalRef = useRef<THREE.Group>(null!);
     const ref = groupRef || internalRef;
+
+    const hasActiveModel = !!urlName;
 
     const [controls] = useControls(name, () => ({
         pos: {
@@ -50,31 +55,21 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
-    const bottomOffset = box.min.y;
-
-    // Set a constant height for all tags (e.g., 3 units above the floor)
-    const tagHeight = 1;
 
     return (
         <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
-
-            <Html position={[0, tagHeight, 0]} center>
-                <div className={styles.tag}>
+            <Html 
+                position={[0, 1, 0]} 
+                center 
+            >
+                <div className={`${styles.tag} ${hasActiveModel ? styles.invisible : ''}`}>
                     <p onClick={onCamera}>{name}</p>
                 </div>
             </Html>
 
-            <group
-                rotation={[rotation.x, controls.rotY, rotation.z]}
-                scale={controls.scale}
-            >
-                <group position={[-center.x, -bottomOffset, -center.z]}>
-                    <Clone
-                        ref={ref}
-                        object={scene}
-                        castShadow
-                        receiveShadow
-                    />
+            <group rotation={[rotation.x, controls.rotY, rotation.z]} scale={controls.scale}>
+                <group position={[-center.x, -box.min.y, -center.z]}>
+                    <Clone ref={ref} object={scene} castShadow receiveShadow />
                 </group>
             </group>
         </group>
