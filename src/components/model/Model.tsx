@@ -5,6 +5,17 @@ import { type MouseEventHandler, useRef } from "react";
 import styles from "./Model.module.css";
 import * as React from "react";
 import { useParams } from "react-router-dom";
+import {RigidBody} from "@react-three/rapier";
+
+export interface PlaygroundInfo {
+    capacity: number;
+    history: string;
+    safeInRain: boolean;
+    material: string;
+    ageRange: string;
+    maintenanceStatus: string;
+    interactive: boolean;
+}
 
 type ModelProps = {
     model: string;
@@ -14,11 +25,14 @@ type ModelProps = {
     rotation: THREE.Vector3;
     scale: number;
     groupRef?: React.Ref<THREE.Group>;
+    info?: PlaygroundInfo;
 };
 
-function Model({ model, name, onCamera, position, rotation, scale, groupRef }: ModelProps) {
+function Model({ model, name, onCamera, position, rotation, scale, groupRef, info }: ModelProps) {
     const { scene } = useGLTF(model);
     const { name: urlName } = useParams();
+
+    console.log(info);
     
     const internalRef = useRef<THREE.Group>(null!);
     const ref = groupRef || internalRef;
@@ -57,7 +71,7 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
     box.getCenter(center);
 
     return (
-        <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
+        <RigidBody position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
             <Html 
                 position={[0, 1, 0]} 
                 center 
@@ -72,7 +86,7 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef }: M
                     <Clone ref={ref} object={scene} castShadow receiveShadow />
                 </group>
             </group>
-        </group>
+        </RigidBody>
     );
 }
 export default Model;

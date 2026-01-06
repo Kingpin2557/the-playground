@@ -29,12 +29,12 @@ function WeatherWidget() {
     const wind = weather.daily.wind_speed_10m_max[0];
     const code = weather.daily.weather_code[0];
 
-    const getWeatherDetails = (wmo: number) => {
-        if (wmo === 0) return { icon: "https://www.amcharts.com/lib/images/weather/animated/day.svg", label: "Clear" };
-        if (wmo <= 3) return { icon: "https://www.amcharts.com/lib/images/weather/animated/cloudy-day-1.svg", label: "Partly Cloudy" };
-        if (wmo <= 48) return { icon: "https://www.amcharts.com/lib/images/weather/animated/cloudy.svg", label: "Foggy" };
-        if (wmo <= 67) return { icon: "https://www.amcharts.com/lib/images/weather/animated/rainy-6.svg", label: "Rainy" };
-        if (wmo <= 77) return { icon: "https://www.amcharts.com/lib/images/weather/animated/snowy-6.svg", label: "Snowy" };
+    const getWeatherDetails = (code: number) => {
+        if (code === 0) return { icon: "https://www.amcharts.com/lib/images/weather/animated/day.svg", label: "Clear" };
+        if (code <= 3) return { icon: "https://www.amcharts.com/lib/images/weather/animated/cloudy-day-1.svg", label: "Partly Cloudy" };
+        if (code <= 48) return { icon: "https://www.amcharts.com/lib/images/weather/animated/cloudy.svg", label: "Foggy" };
+        if (code <= 67) return { icon: "https://www.amcharts.com/lib/images/weather/animated/rainy-6.svg", label: "Rainy" };
+        if (code <= 77) return { icon: "https://www.amcharts.com/lib/images/weather/animated/snowy-6.svg", label: "Snowy" };
         return { icon: "https://www.amcharts.com/lib/images/weather/animated/thunder.svg", label: "Stormy" };
     };
 

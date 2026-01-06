@@ -45,10 +45,9 @@ function Experience() {
         });
     };
 
-    // const isProduction = import.meta.env.VITE_IS_PRODUCTION === 'true';
 
     return (
-        <Physics debug>
+        <Physics debug={false}>
             <CameraLogger/>
             <OrbitControls
                 ref={orbitRef}
@@ -76,6 +75,7 @@ function Experience() {
                             rotation={vectorRotation}
                             scale={model.scale}
                             groupRef={isSelected ? selectedModelRef : undefined}
+                            info={isSelected ? model.info : undefined}
                         />
                     )
                 })}

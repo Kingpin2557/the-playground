@@ -12,6 +12,15 @@
       "near": 0.1,
       "far": 100,
       "zoom": 5
+    },
+    "info": {
+      "capacity": 2,
+      "history": "Een klassieke wipwap die generaties lang plezier biedt op speelplaatsen over de hele wereld.",
+      "safeInRain": true,
+      "material": "Metal/Wood",
+      "ageRange": "4-10",
+      "maintenanceStatus": "Good",
+      "interactive": true
     }
   },
   {
@@ -27,6 +36,15 @@
       "near": 0.1,
       "far": 100,
       "zoom": 5
+    },
+    "info": {
+      "capacity": 1,
+      "history": "Oorspronkelijk gemaakt van gerecyclede autobanden, nu een symbool van creatief buitenspelen.",
+      "safeInRain": false,
+      "material": "Rubber/Rope",
+      "ageRange": "6-12",
+      "maintenanceStatus": "Check Ropes",
+      "interactive": true
     }
   },
   {
@@ -42,6 +60,15 @@
       "near": 0.1,
       "far": 100,
       "zoom": 1
+    },
+    "info": {
+      "capacity": 4,
+      "history": "Dit klimtoestel is ontworpen om de motoriek en sociale interactie van kinderen te stimuleren.",
+      "safeInRain": true,
+      "material": "Reinforced Plastic",
+      "ageRange": "3-8",
+      "maintenanceStatus": "Excellent",
+      "interactive": false
     }
   },
   {
@@ -57,6 +84,15 @@
       "near": 0.1,
       "far": 100,
       "zoom": 1
+    },
+    "info": {
+      "capacity": 10,
+      "history": "Het hart van de buurt waar vriendschappelijke wedstrijden en sportiviteit samenkomen.",
+      "safeInRain": true,
+      "material": "Grass/Steel",
+      "ageRange": "All ages",
+      "maintenanceStatus": "Needs Mowing",
+      "interactive": true
     }
   }
 ]

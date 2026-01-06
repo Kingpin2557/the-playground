@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useControls, button } from "leva";
 import * as THREE from "three";
+import {RigidBody} from "@react-three/rapier";
 
 function Floor() {
     const { scene } = useGLTF('./ground.glb');
@@ -34,25 +35,27 @@ function Floor() {
 
 
     return (
-        <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
-            <group rotation={[0, controls.rotY, 0]} scale={controls.scale}>
-                <group position={[-center.x, -bottomOffset, -center.z]}>
-                    <mesh
-                        geometry={mesh.geometry}
-                        receiveShadow
-                    >
-                        <meshStandardMaterial
-                            {...(mesh.material as THREE.MeshStandardMaterial)}
-                            transparent={true}
-                            alphaTest={0.5}
-                            depthWrite={true}
-                            depthTest={true}
-                            side={THREE.DoubleSide}
-                        />
-                    </mesh>
+        <RigidBody type="fixed">
+            <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
+                <group rotation={[0, controls.rotY, 0]} scale={controls.scale}>
+                    <group position={[-center.x, -bottomOffset, -center.z]}>
+                        <mesh
+                            geometry={mesh.geometry}
+                            receiveShadow
+                        >
+                            <meshStandardMaterial
+                                {...(mesh.material as THREE.MeshStandardMaterial)}
+                                transparent={true}
+                                alphaTest={0.5}
+                                depthWrite={true}
+                                depthTest={true}
+                                side={THREE.DoubleSide}
+                            />
+                        </mesh>
+                    </group>
                 </group>
             </group>
-        </group>
+        </RigidBody>
     );
 }
 
