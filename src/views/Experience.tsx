@@ -15,6 +15,16 @@ import models from "../assets/playgrounds.json";
 import {useCameraSync} from "../hooks/useCameraSync.ts";
 import {Physics} from "@react-three/rapier";
 
+export interface PlaygroundInfo {
+    capacity: number;
+    history: string;
+    safeInRain: boolean;
+    material: string;
+    ageRange: string;
+    maintenanceStatus: string;
+    interactive: boolean;
+}
+
 function Experience() {
     const navigate = useNavigate();
     const { name } = useParams(); // Zorg dat name beschikbaar is voor de vergelijking
@@ -27,7 +37,7 @@ function Experience() {
     const { camera } = useThree();
     const pCamera = camera as PerspectiveCamera;
 
-    const saveSettings = (modelName: string) => {
+    const saveSettings = (modelName: string, info: PlaygroundInfo) => {
         if (!orbitRef.current) return;
 
         const currentPos = {
@@ -41,7 +51,10 @@ function Experience() {
         };
 
         navigate(`/${modelName.toLowerCase()}`, {
-            state: {currentPos}
+            state: {
+                currentPos,
+                info
+            }
         });
     };
 
@@ -55,6 +68,11 @@ function Experience() {
                 enableDamping
                 dampingFactor={0.05}
                 enableZoom={!name}
+                mouseButtons={{
+                    LEFT: name ? THREE.MOUSE.ROTATE : THREE.MOUSE.PAN,
+                    MIDDLE: THREE.MOUSE.DOLLY,
+                    RIGHT: name ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE
+                }}
             />
             <directionalLight position={[1, 2, 3]} intensity={4.5} />
             <ambientLight intensity={1} />
@@ -70,12 +88,11 @@ function Experience() {
                             key={model.id}
                             model={model.path}
                             name={model.name}
-                            onCamera={() => saveSettings(model.name)}
+                            onCamera={() => saveSettings(model.name, model.info)}
                             position={vectorPosition}
                             rotation={vectorRotation}
                             scale={model.scale}
                             groupRef={isSelected ? selectedModelRef : undefined}
-                            info={isSelected ? model.info : undefined}
                         />
                     )
                 })}

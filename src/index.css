@@ -7,10 +7,6 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 html,
@@ -20,8 +16,8 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Voorkomt alle scrollbars */
-  position: fixed;  /* Voorkomt 'rubber banding' op mobiel */
+  overflow: hidden;
+  position: fixed;
 }
 
 *, *::before, *::after {
@@ -32,8 +28,8 @@ body,
 }
 
 canvas {
-    display: block; /* Verwijdert kleine witruimte aan de onderkant */
+    display: block;
     width: 100vw !important;
     height: 100vh !important;
-    touch-action: none; /* Voorkomt browser-gebaren die scrollen veroorzaken */
+    touch-action: none;
 }

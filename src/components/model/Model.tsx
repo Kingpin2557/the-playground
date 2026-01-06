@@ -7,15 +7,7 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import {RigidBody} from "@react-three/rapier";
 
-export interface PlaygroundInfo {
-    capacity: number;
-    history: string;
-    safeInRain: boolean;
-    material: string;
-    ageRange: string;
-    maintenanceStatus: string;
-    interactive: boolean;
-}
+
 
 type ModelProps = {
     model: string;
@@ -25,15 +17,13 @@ type ModelProps = {
     rotation: THREE.Vector3;
     scale: number;
     groupRef?: React.Ref<THREE.Group>;
-    info?: PlaygroundInfo;
 };
 
-function Model({ model, name, onCamera, position, rotation, scale, groupRef, info }: ModelProps) {
+function Model({ model, name, onCamera, position, rotation, scale, groupRef}: ModelProps) {
     const { scene } = useGLTF(model);
     const { name: urlName } = useParams();
 
-    console.log(info);
-    
+
     const internalRef = useRef<THREE.Group>(null!);
     const ref = groupRef || internalRef;
 
@@ -74,7 +64,8 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef, inf
         <RigidBody position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
             <Html 
                 position={[0, 1, 0]} 
-                center 
+                center
+                zIndexRange={[0, 10]}
             >
                 <div className={`${styles.tag} ${hasActiveModel ? styles.invisible : ''}`}>
                     <p onClick={onCamera}>{name}</p>

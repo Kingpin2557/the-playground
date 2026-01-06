@@ -64,7 +64,7 @@
     "info": {
       "capacity": 4,
       "history": "Dit klimtoestel is ontworpen om de motoriek en sociale interactie van kinderen te stimuleren.",
-      "safeInRain": true,
+      "safeInRain": false,
       "material": "Reinforced Plastic",
       "ageRange": "3-8",
       "maintenanceStatus": "Excellent",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "id": 4,
+    "id": 12,
     "name": "Football field",
     "path": "./goal/goal.glb",
     "position": [-0.00, 0.00, 2.50],

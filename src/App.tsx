@@ -4,7 +4,8 @@ import Experience from "./views/Experience.tsx";
 import { useCameraStore } from "./store/useCameraStore.ts";
 import {Leva} from "leva";
 import {CameraHelper} from "./components/CameraHelper.tsx";
-import WeatherWidget from "./components/weatherwidget/WeatherWidget.tsx"; // Import the store hook
+import WeatherWidget from "./components/weatherwidget/WeatherWidget.tsx";
+import InfoWidget from "./components/infowidget/InfoWidget.tsx"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
@@ -12,7 +13,7 @@ function App() {
 
     return (
         <>
-            <Leva hidden={false}/>
+            <Leva hidden={true}/>
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,
@@ -27,6 +28,7 @@ function App() {
                 </Routes>
                 <CameraHelper />
             </Canvas>
+            <InfoWidget/>
             <WeatherWidget/>
         </>
     );

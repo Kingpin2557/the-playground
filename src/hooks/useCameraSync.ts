@@ -47,6 +47,9 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
             orbit.enablePan = false;
 
 
+
+
+
             const box = new THREE.Box3().setFromObject(scene.current);
             const center = new THREE.Vector3();
             box.getCenter(center);
@@ -100,7 +103,8 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
             // DEFAULT SETTINGS (op de root pagina)
             orbit.enableRotate = false;
             orbit.enablePan = true;
-            orbit.enableZoom = true;
+            orbit.enableZoom = false;
+
 
             gsap.to(orbit, {
                 minPolarAngle: 0,

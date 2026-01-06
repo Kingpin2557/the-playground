@@ -40,10 +40,17 @@ function WeatherWidget() {
 
     const details = getWeatherDetails(code);
 
+    const getSeasonClass = () => {
+        const month = new Date().getMonth();
+        if (month >= 2 && month <= 4) return styles.labelSpring;
+        if (month >= 5 && month <= 7) return styles.labelSummer;
+        if (month >= 8 && month <= 10) return styles.labelAutumn;
+        return styles.labelWinter;
+    };
+
     return (
-            <div className={styles.weather}>
+        <div className={`${styles.weather}  ${getSeasonClass()}`}>
                 <div className={styles.column}>
-                    <span className={styles.label} >{details.label}</span>
                     <img
                         className={styles.icon}
                         src={details.icon}

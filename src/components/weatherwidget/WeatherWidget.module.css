@@ -6,12 +6,12 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    background: rgba(0, 0, 0, 0.7);
     padding: 10px 20px;
-    border-radius: 12px;
-    color: white;
+    border-radius: 55px;
     font-family: sans-serif;
     pointer-events: none;
+
+
 
     z-index: 10000;
 }
@@ -28,8 +28,49 @@
 .label {
     font-size: 10px;
     text-transform: uppercase;
-    opacity: 0.7;
     margin: 0;
+    color: black;
+
+}
+
+.labelWinter {
+    border: 2px solid #e0f7fa;
+    box-shadow: 0 0 10px #e0f7fa;
+    background: rgba(224, 247, 250, 0.9);
+    color: #01579b;
+    span {
+        color: #01579b;
+    }
+}
+
+.labelSpring {
+    border: 2px solid #c8e6c9;
+    box-shadow: 0 0 10px #c8e6c9;
+    background: rgba(200, 230, 201, 0.9);
+    color: #1b5e20;
+    span {
+        color: #1b5e20;
+    }
+}
+
+.labelSummer {
+    border: 2px solid #fff9c4;
+    box-shadow: 0 0 10px #fff9c4;
+    background: rgba(255, 249, 196, 0.9);
+    color: #f57f17;
+    span {
+        color: #f57f17;
+    }
+}
+
+.labelAutumn {
+    border: 2px solid #ffccbc;
+    box-shadow: 0 0 10px #ffccbc;
+    background: rgba(255, 204, 188, 0.9);
+    color: #bf360c;
+    span {
+        color: #bf360c;
+    }
 }
 
 .value {
@@ -37,12 +78,13 @@
     margin: 0;
     font-size: 14px;
 
-    height: 45px;
+    height: 30px;
     align-items: center;
     display: flex;
 }
 
 .icon {
-    width: 45px;
-    height: 45px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
 }
