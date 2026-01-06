@@ -13,6 +13,7 @@ import Floor from "../components/floor/Floor.tsx";
 
 import models from "../assets/playgrounds.json";
 import {useCameraSync} from "../hooks/useCameraSync.ts";
+import {Physics} from "@react-three/rapier";
 
 function Experience() {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ function Experience() {
     // const isProduction = import.meta.env.VITE_IS_PRODUCTION === 'true';
 
     return (
-        <>
+        <Physics debug>
             <CameraLogger/>
             <OrbitControls
                 ref={orbitRef}
@@ -80,7 +81,7 @@ function Experience() {
                 })}
                 <Floor />
             </group>
-        </>
+        </Physics>
     );
 }
 
