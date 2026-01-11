@@ -3,7 +3,7 @@ import { useControls, button } from "leva";
 import * as THREE from "three";
 
 function Floor() {
-    const { scene } = useGLTF('./ground.glb');
+    const { scene } = useGLTF('./floor/ground.glb');
     const name = "Ground";
 
     let mesh: THREE.Mesh | undefined;
