@@ -83,25 +83,6 @@
     }
 }
 
-.value {
-    font-weight: bold;
-    margin: 0;
-    font-size: 14px;
-
-    height: 30px;
-    align-items: center;
-    display: flex;
-}
-
-.icon {
-    width: 60px;
-    height: 60px;
-    display: block;
-
-    margin-right: 10px;
-}
-
-
 .info {
     position: absolute;
     right: 20px;

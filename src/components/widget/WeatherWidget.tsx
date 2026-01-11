@@ -52,13 +52,13 @@ function WeatherWidget() {
                     />
                 </div>
                 <div className={styles.column}>
-                    <p className={styles.label}>Temp</p>
-                    <span className={styles.value}>{minTemp}° / {maxTemp}°C</span>
+                    <p>Temp</p>
+                    <span>{minTemp}° / {maxTemp}°C</span>
                 </div>
 
                 <div className={styles.column}>
-                    <p className={styles.label}>Wind</p>
-                    <span className={styles.value}>{wind} km/h</span>
+                    <p>Wind</p>
+                    <span>{wind} km/h</span>
                 </div>
             </div>
     );

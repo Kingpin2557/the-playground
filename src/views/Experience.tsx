@@ -3,8 +3,8 @@ import * as THREE from "three";
 
 import {useThree} from "@react-three/fiber";
 import {useNavigate, useParams} from "react-router-dom";
-import {OrbitControls} from "@react-three/drei";
-import { useRef } from "react";
+import { OrbitControls } from "@react-three/drei";
+import {  useRef } from "react";
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import CameraLogger from "../components/CameraLogger.tsx"
 
@@ -13,7 +13,7 @@ import Floor from "../components/floor/Floor.tsx";
 
 import models from "../assets/playgrounds.json";
 import {useCameraSync} from "../hooks/useCameraSync.ts";
-import {Physics} from "@react-three/rapier";
+import {Physics, RigidBody} from "@react-three/rapier";
 
 export interface PlaygroundInfo {
     capacity: number;
@@ -21,12 +21,12 @@ export interface PlaygroundInfo {
     safeInRain: boolean;
     material: string;
     ageRange: string;
-    maintenanceStatus: string;
 }
 
 function Experience() {
     const navigate = useNavigate();
-    const { name } = useParams(); // Zorg dat name beschikbaar is voor de vergelijking
+    const { name } = useParams();
+    // const isRoot = !name;
     const orbitRef = useRef<OrbitControlsImpl | null>(null);
     const selectedModelRef = useRef<THREE.Group | null>(null);
 
@@ -35,6 +35,8 @@ function Experience() {
 
     const { camera } = useThree();
     const pCamera = camera as PerspectiveCamera;
+
+
 
     const saveSettings = (modelName: string, info: PlaygroundInfo) => {
         if (!orbitRef.current) return;
@@ -76,28 +78,31 @@ function Experience() {
             <directionalLight position={[1, 2, 3]} intensity={4.5} />
             <ambientLight intensity={1} />
 
-            <group>
-                {models.map((model) => {
-                    const vectorPosition = new THREE.Vector3().fromArray(model.position);
-                    const vectorRotation = new THREE.Vector3().fromArray(model.rotation);
-                    const isSelected = model.name.toLowerCase() === name?.toLowerCase();
+                <group>
+                    {models.map((model) => {
+                        const vectorPosition = new THREE.Vector3().fromArray(model.position);
+                        const vectorRotation = new THREE.Vector3().fromArray(model.rotation);
+                        const isSelected = model.name.toLowerCase() === name?.toLowerCase();
 
-                    return (
-                        <Model
-                            key={model.id}
-                            model={model.path}
-                            name={model.name}
-                            onCamera={() => saveSettings(model.name, model.info)}
-                            position={vectorPosition}
-                            rotation={vectorRotation}
-                            scale={model.scale}
-                            groupRef={isSelected ? selectedModelRef : undefined}
-                        />
-                    )
-                })}
-                <Floor />
-            </group>
-        </Physics>
+                        return (
+                            <RigidBody key={model.id} type="fixed" colliders="hull">
+                                <Model
+                                    model={model.path}
+                                    name={model.name}
+                                    onCamera={() => saveSettings(model.name, model.info)}
+                                    position={vectorPosition}
+                                    rotation={vectorRotation}
+                                    scale={model.scale}
+                                    groupRef={isSelected ? selectedModelRef : undefined}
+                                />
+                            </RigidBody>
+                        )
+                    })}
+                    <RigidBody type="fixed" colliders="cuboid">
+                        <Floor />
+                    </RigidBody>
+                </group>
+            </Physics>
     );
 }
 

@@ -1,12 +1,12 @@
 .tag {
     color: white;
     cursor: pointer;
+    border-radius: 50px;
     p {
-        background-color: blue;
-        padding-block: 10px;
+        padding-block: 5px;
         padding-inline: 30px;
         margin: 0;
-        border-radius: 10px;
+
         min-width: max-content;
     }
 }

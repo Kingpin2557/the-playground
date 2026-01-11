@@ -5,7 +5,7 @@
     "path": "./seesaw/seesaw.glb",
     "position": [-2.00, 0.00, -3.40],
     "rotation": [0.00, 0.74, 0.00],
-    "scale": 3.22,
+    "scale": 4.00,
     "cameraSettings": {
       "offset": [5, 0.8, 3],
       "fov": 45,
@@ -18,31 +18,29 @@
       "history": "Een klassieke wipwap die generaties lang plezier biedt op speelplaatsen over de hele wereld.",
       "safeInRain": true,
       "material": "Metal/Wood",
-      "ageRange": "4-10",
-      "maintenanceStatus": "Good"
+      "ageRange": "4-10"
     }
   },
   {
     "id": 2,
     "name": "Tireswing",
     "path": "./tireswing/tireswing.glb",
-    "position": [-2.20, 0.00, -1.40],
+    "position": [-2.20, 0.1, -1.40],
     "rotation": [0.00, 2.70, 0.00],
-    "scale": 2.04,
+    "scale": 3.00,
     "cameraSettings": {
       "offset": [4, 0.3, 2],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 5
+      "zoom": 3
     },
     "info": {
       "capacity": 1,
       "history": "Oorspronkelijk gemaakt van gerecyclede autobanden, nu een symbool van creatief buitenspelen.",
       "safeInRain": false,
       "material": "Rubber/Rope",
-      "ageRange": "6-12",
-      "maintenanceStatus": "Check Ropes"
+      "ageRange": "6-12"
     }
   },
   {
@@ -51,30 +49,29 @@
     "path": "./climbhouse/climbhouse.glb",
     "position": [1.40, 0.00, -2.30],
     "rotation": [0.00, 0.22, 0.00],
-    "scale": 1.62,
+    "scale": 3.00,
     "cameraSettings": {
       "offset": [-2, 0.3, 2],
       "fov": 45,
       "near": 0.1,
       "far": 100,
-      "zoom": 1
+      "zoom": 0.5
     },
     "info": {
       "capacity": 4,
       "history": "Dit klimtoestel is ontworpen om de motoriek en sociale interactie van kinderen te stimuleren.",
       "safeInRain": false,
       "material": "Reinforced Plastic",
-      "ageRange": "3-8",
-      "maintenanceStatus": "Excellent"
+      "ageRange": "3-8"
     }
   },
   {
     "id": 12,
     "name": "Football field",
     "path": "./goal/goal.glb",
-    "position": [-0.00, 0.00, 2.50],
-    "rotation": [0.00, -0.03, 0.00],
-    "scale": 1.06,
+    "position": [0.20, 0.00, 2.70],
+    "rotation": [0.00, -0.02, 0.00],
+    "scale": 1.4300000000000002,
     "cameraSettings": {
       "offset": [-2, 0.5, -2],
       "fov": 45,
@@ -87,8 +84,7 @@
       "history": "Het hart van de buurt waar vriendschappelijke wedstrijden en sportiviteit samenkomen.",
       "safeInRain": true,
       "material": "Grass/Steel",
-      "ageRange": "All ages",
-      "maintenanceStatus": "Needs Mowing"
+      "ageRange": "All ages"
     }
   }
 ]

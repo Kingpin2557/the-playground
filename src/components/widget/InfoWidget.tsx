@@ -1,7 +1,7 @@
 import styles from "./Widget.module.css";
 
 import {useLocation} from "react-router-dom";
-import {Baby, Box, CheckCircle2, CloudRain, ShieldCheck, User} from "lucide-react";
+import {Baby, Box, CheckCircle2, CloudRain, User} from "lucide-react";
 import {useSeason} from "../../hooks/useSeason.ts";
 
 function InfoWidget() {
@@ -35,10 +35,6 @@ function InfoWidget() {
                     <li>
                         <Baby size={20} />
                         <p>{info.ageRange}</p>
-                    </li>
-                    <li>
-                        <ShieldCheck size={20} />
-                        <p>{info.maintenanceStatus}</p>
                     </li>
                     <li>
                         {info.safeInRain ? (

@@ -3,6 +3,8 @@ import { useControls, button } from "leva";
 import * as THREE from "three";
 import { type MouseEventHandler, useRef } from "react";
 import styles from "./Model.module.css";
+import widgetStyles from "../widget/Widget.module.css";
+import { useSeason } from "../../hooks/useSeason";
 import * as React from "react";
 import { useParams } from "react-router-dom";
 
@@ -18,15 +20,18 @@ type ModelProps = {
     groupRef?: React.Ref<THREE.Group>;
 };
 
-function Model({ model, name, onCamera, position, rotation, scale, groupRef}: ModelProps) {
+function Model({ model, name, onCamera, position, rotation, scale, groupRef }: ModelProps) {
     const { scene } = useGLTF(model);
-    const { name: urlName } = useParams();
 
+    // ... bestaande hooks ...
+    const seasonClass = useSeason(widgetStyles);
+    const hasActiveModel = !!useParams().name;
+
+    // ... bestaande logica ...
 
     const internalRef = useRef<THREE.Group>(null!);
     const ref = groupRef || internalRef;
 
-    const hasActiveModel = !!urlName;
 
     const [controls] = useControls(name, () => ({
         pos: {
@@ -61,12 +66,12 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef}: Mo
 
     return (
         <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
-            <Html 
-                position={[0, 1, 0]} 
+            <Html
+                position={[0, 1, 0]}
                 center
                 zIndexRange={[0, 10]}
             >
-                <div className={`${styles.tag} ${hasActiveModel ? styles.invisible : ''}`}>
+                <div className={`${styles.tag} ${seasonClass} ${hasActiveModel ? styles.invisible : ''}`}>
                     <p onClick={onCamera}>{name}</p>
                 </div>
             </Html>
@@ -79,4 +84,6 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef}: Mo
         </group>
     );
 }
+
+
 export default Model;
