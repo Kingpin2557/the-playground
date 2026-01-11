@@ -5,7 +5,6 @@ import { type MouseEventHandler, useRef } from "react";
 import styles from "./Model.module.css";
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import {RigidBody} from "@react-three/rapier";
 
 
 
@@ -61,7 +60,7 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef}: Mo
     box.getCenter(center);
 
     return (
-        <RigidBody position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
+        <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
             <Html 
                 position={[0, 1, 0]} 
                 center
@@ -77,7 +76,7 @@ function Model({ model, name, onCamera, position, rotation, scale, groupRef}: Mo
                     <Clone ref={ref} object={scene} castShadow receiveShadow />
                 </group>
             </group>
-        </RigidBody>
+        </group>
     );
 }
 export default Model;

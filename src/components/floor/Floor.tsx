@@ -1,7 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { useControls, button } from "leva";
 import * as THREE from "three";
-import {RigidBody} from "@react-three/rapier";
 
 function Floor() {
     const { scene } = useGLTF('./ground.glb');
@@ -35,7 +34,6 @@ function Floor() {
 
 
     return (
-        <RigidBody type="fixed">
             <group position={[controls.pos.x, controls.pos.y, controls.pos.z]}>
                 <group rotation={[0, controls.rotY, 0]} scale={controls.scale}>
                     <group position={[-center.x, -bottomOffset, -center.z]}>
@@ -55,7 +53,6 @@ function Floor() {
                     </group>
                 </group>
             </group>
-        </RigidBody>
     );
 }
 
