@@ -16,7 +16,7 @@ function Floor() {
 
 
     const [controls] = useControls(name, () => ({
-        pos: { value: { x: 13.800000000000002, y: -0.20000000000000004, z: 0 }, step: -0.19999999999999998 },
+        pos: { value: { x: 13.800000000000002, y: 0, z: 0 }, step: -0.19999999999999998 },
         rotY: { value: 0, step: 0.01 },
         scale: { value: 1, min: 0.1, max: 20, step: 0.01 },
         "Log Values": button((get) => {

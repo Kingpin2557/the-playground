@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import styles from   './WeatherWidget.module.css';
+import styles from "./Widget.module.css";
+import { useSeason } from '../../hooks/useSeason';
 
 interface MeteoData {
     daily: {
@@ -13,6 +14,7 @@ interface MeteoData {
 
 function WeatherWidget() {
     const [weather, setWeather] = useState<MeteoData | null>(null);
+    const seasonClass = useSeason(styles);
 
     useEffect(() => {
         fetch("https://api.open-meteo.com/v1/forecast?latitude=51.07&longitude=3.71&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max&timezone=Europe%2FBerlin")
@@ -40,17 +42,9 @@ function WeatherWidget() {
 
     const details = getWeatherDetails(code);
 
-    const getSeasonClass = () => {
-        const month = new Date().getMonth();
-        if (month >= 2 && month <= 4) return styles.labelSpring;
-        if (month >= 5 && month <= 7) return styles.labelSummer;
-        if (month >= 8 && month <= 10) return styles.labelAutumn;
-        return styles.labelWinter;
-    };
-
-    return (
-        <div className={`${styles.weather}  ${getSeasonClass()}`}>
-                <div className={styles.column}>
+        return (
+            <div className={`${styles.weather} ${seasonClass}`}>
+                    <div className={styles.column}>
                     <img
                         className={styles.icon}
                         src={details.icon}

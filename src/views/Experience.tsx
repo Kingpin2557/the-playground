@@ -22,7 +22,6 @@ export interface PlaygroundInfo {
     material: string;
     ageRange: string;
     maintenanceStatus: string;
-    interactive: boolean;
 }
 
 function Experience() {

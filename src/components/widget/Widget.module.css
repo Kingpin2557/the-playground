@@ -100,3 +100,42 @@
 
     margin-right: 10px;
 }
+
+
+.info {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: sans-serif;
+    z-index: 10000;
+    pointer-events: auto;
+
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    h3 {
+        font-weight: 700;
+
+        margin-bottom: 10px;
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+
+            margin-left: 5px;
+        }
+    }
+
+}

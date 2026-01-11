@@ -4,16 +4,17 @@ import Experience from "./views/Experience.tsx";
 import { useCameraStore } from "./store/useCameraStore.ts";
 import {Leva} from "leva";
 import {CameraHelper} from "./components/CameraHelper.tsx";
-import WeatherWidget from "./components/weatherwidget/WeatherWidget.tsx";
-import InfoWidget from "./components/infowidget/InfoWidget.tsx"; // Import the store hook
+import WeatherWidget from "./components/widget/WeatherWidget.tsx";
+import InfoWidget from "./components/widget/InfoWidget.tsx"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
 
+    const isProduction = import.meta.env.VITE_IS_PRODUCTION === 'true';
 
     return (
         <>
-            <Leva hidden={true}/>
+            <Leva hidden={isProduction}/>
             <Canvas
                 camera={{
                     fov: defaultSettings.fov,

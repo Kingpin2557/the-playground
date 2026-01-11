@@ -19,8 +19,7 @@
       "safeInRain": true,
       "material": "Metal/Wood",
       "ageRange": "4-10",
-      "maintenanceStatus": "Good",
-      "interactive": true
+      "maintenanceStatus": "Good"
     }
   },
   {
@@ -43,8 +42,7 @@
       "safeInRain": false,
       "material": "Rubber/Rope",
       "ageRange": "6-12",
-      "maintenanceStatus": "Check Ropes",
-      "interactive": true
+      "maintenanceStatus": "Check Ropes"
     }
   },
   {
@@ -67,8 +65,7 @@
       "safeInRain": false,
       "material": "Reinforced Plastic",
       "ageRange": "3-8",
-      "maintenanceStatus": "Excellent",
-      "interactive": false
+      "maintenanceStatus": "Excellent"
     }
   },
   {
@@ -91,8 +88,7 @@
       "safeInRain": true,
       "material": "Grass/Steel",
       "ageRange": "All ages",
-      "maintenanceStatus": "Needs Mowing",
-      "interactive": true
+      "maintenanceStatus": "Needs Mowing"
     }
   }
 ]
