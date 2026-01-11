@@ -13,7 +13,7 @@ function InfoWidget() {
     const { info } = state;
 
     return (
-        <div className={`${styles.info} ${seasonClass}`}>
+        <div className={`${styles.info} ${seasonClass} ${styles.noHover}`}>
             <section>
                 <header>
                     <h3>Geschiedenis</h3>

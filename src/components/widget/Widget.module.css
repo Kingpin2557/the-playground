@@ -63,6 +63,11 @@
     --season-text: #bf360c;
 }
 
+.noHover {
+    pointer-events: none !important;
+    box-shadow: none !important;
+}
+
 /* 2. Eén algemene stijl voor alle seizoenslabels */
 [class*="label"] {
     border: 2px solid var(--season-color);
@@ -82,6 +87,10 @@
     transform: scale(1.05);
     box-shadow: 0 0 20px var(--season-color);
     cursor: pointer;
+}
+
+.season:hover {
+    transform: scale(1);
 }
 
 .info {
