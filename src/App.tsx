@@ -6,7 +6,8 @@ import {Leva} from "leva";
 import {CameraHelper} from "./components/CameraHelper.tsx";
 import WeatherWidget from "./components/widget/WeatherWidget.tsx";
 import InfoWidget from "./components/widget/InfoWidget.tsx";
-import GoBack from "./components/goback/GoBack.tsx"; // Import the store hook
+import GoBack from "./components/goback/GoBack.tsx";
+import AudioManager from "./components/audio/AudioManager.tsx"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
@@ -31,7 +32,7 @@ function App() {
                 <CameraHelper />
             </Canvas>
             <GoBack/>
-
+            <AudioManager />
             <InfoWidget/>
             <WeatherWidget/>
         </>

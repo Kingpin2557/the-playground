@@ -44,43 +44,44 @@
 }
 
 .labelWinter {
-    border: 2px solid #e0f7fa;
-    box-shadow: 0 0 10px #e0f7fa;
-    background: rgba(224, 247, 250, 0.9);
-    color: #01579b;
-    span {
-        color: #01579b;
-    }
+    --season-color: #e0f7fa;
+    --season-text: #01579b;
 }
 
 .labelSpring {
-    border: 2px solid #c8e6c9;
-    box-shadow: 0 0 10px #c8e6c9;
-    background: rgba(200, 230, 201, 0.9);
-    color: #1b5e20;
-    span {
-        color: #1b5e20;
-    }
+    --season-color: #c8e6c9;
+    --season-text: #1b5e20;
 }
 
 .labelSummer {
-    border: 2px solid #fff9c4;
-    box-shadow: 0 0 10px #fff9c4;
-    background: rgba(255, 249, 196, 0.9);
-    color: #f57f17;
-    span {
-        color: #f57f17;
-    }
+    --season-color: #fff9c4;
+    --season-text: #f57f17;
 }
 
 .labelAutumn {
-    border: 2px solid #ffccbc;
-    box-shadow: 0 0 10px #ffccbc;
-    background: rgba(255, 204, 188, 0.9);
-    color: #bf360c;
-    span {
-        color: #bf360c;
-    }
+    --season-color: #ffccbc;
+    --season-text: #bf360c;
+}
+
+/* 2. Eén algemene stijl voor alle seizoenslabels */
+[class*="label"] {
+    border: 2px solid var(--season-color);
+    box-shadow: 0 0 10px var(--season-color);
+    background: rgba(255, 255, 255, 0.9); /* Of gebruik rgba van de var */
+    color: var(--season-text);
+    transition: all 0.2s ease-in-out;
+}
+
+[class*="label"] span {
+    color: var(--season-text);
+}
+
+/* 3. Het gedeelde hover-effect (slechts één keer geschreven) */
+[class*="label"]:hover {
+    background: var(--season-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--season-color);
+    cursor: pointer;
 }
 
 .info {
