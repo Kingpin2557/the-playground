@@ -16,6 +16,7 @@ import {Physics, RigidBody} from "@react-three/rapier";
 import Tree from "../components/tree/Tree.tsx";
 import {CameraHelper} from "../components/CameraHelper.tsx";
 import Atmosphere from "../components/atmosphere/Atmosphere.tsx";
+import {Ocean} from "../components/ocean/Ocean.tsx";
 
 export interface PlaygroundInfo {
     capacity: number;
@@ -81,6 +82,9 @@ function Experience() {
 
             <Atmosphere/>
 
+            <group>
+                <Ocean />
+            </group>
             <group>
                 <Tree treeData={models.trees} />
                 {models.model.map((model) => {
