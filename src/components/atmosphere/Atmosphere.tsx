@@ -61,15 +61,18 @@ function Atmosphere() {
                 intensity={intensity}
                 color={sunColor}
                 castShadow
+                // Higher resolution for cleaner edges
                 shadow-mapSize={[2048, 2048]}
-                shadow-bias={-0.0005}
-                shadow-normalBias={0.02}
-                shadow-camera-near={ 1 }
-                shadow-camera-far={ 10 }
-                shadow-camera-top={ 2 }
-                shadow-camera-right={ 2 }
-                shadow-camera-bottom={ - 2 }
-                shadow-camera-left={ - 2 }
+                // Bias prevents "shadow acne" (stripes on surfaces)
+                shadow-bias={-0.0001}
+                shadow-normalBias={0.05}
+                // Expanded frustum to cover the playground (e.g., 15x15 units)
+                shadow-camera-near={0.1}
+                shadow-camera-far={50}
+                shadow-camera-top={15}
+                shadow-camera-right={15}
+                shadow-camera-bottom={-15}
+                shadow-camera-left={-15}
             />
 
             <ambientLight intensity={0.4} color="#ddecff" />

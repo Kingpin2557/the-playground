@@ -4,11 +4,11 @@
       "id": 1,
       "name": "Seesaw",
       "path": "./seesaw/seesaw.glb",
-      "position": [-2.50, 0.84, -3.70],
+      "position": [-2.50, 0.80, -3.70],
       "rotation": [0.00, 3.95, 0.00],
       "scale":2.21,
       "cameraSettings": {
-        "offset": [5, 0.8, 3],
+        "offset": [-1.4999999999999687, 2.700000000000001, -3.600000000000004],
         "fov": 45,
         "near": 0.1,
         "far": 100,
@@ -30,7 +30,7 @@
       "rotation": [0.00, 2.70, 0.00],
       "scale": 3.0,
       "cameraSettings": {
-        "offset": [4, 0.3, 2],
+        "offset": [1.5000000000000009, 2, 4],
         "fov": 45,
         "near": 0.1,
         "far": 100,
@@ -52,7 +52,7 @@
       "rotation": [0.00, 1.32, 0.00],
       "scale": 3.0,
       "cameraSettings": {
-        "offset": [-2, 0.3, 2],
+        "offset": [-1.4, 0.3, 2],
         "fov": 45,
         "near": 0.1,
         "far": 100,
@@ -74,7 +74,7 @@
       "rotation": [0.00, 1.92, 0.00],
       "scale": 1.31,
       "cameraSettings": {
-        "offset": [-2, 0.5, -2],
+        "offset": [-0.6999999999999993, 0.5, -2.900000000000001],
         "fov": 45,
         "near": 0.1,
         "far": 100,
