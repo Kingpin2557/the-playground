@@ -22,6 +22,6 @@ export const useCameraStore = create<CameraStore>(() => ({
         far: 1000,
         position: [-19.200000000000024, 15, 0],
         rotation: [0, 0.65, 1.50],
-        target: [-3.09999999999994, 0.4, 0.09999999999986159],
+        target: [0, 0.2, 0],
     },
 }));

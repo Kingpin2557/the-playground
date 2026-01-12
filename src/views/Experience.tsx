@@ -1,7 +1,7 @@
 import {PerspectiveCamera} from "three";
 import * as THREE from "three";
 
-import {useThree} from "@react-three/fiber";
+import {useFrame, useThree} from "@react-three/fiber";
 import {useNavigate, useParams} from "react-router-dom";
 import { OrbitControls} from "@react-three/drei";
 import {  useRef } from "react";
@@ -13,7 +13,6 @@ import Floor from "../components/floor/Floor.tsx";
 import models from "../assets/playgrounds.json";
 import {useCameraSync} from "../hooks/useCameraSync.ts";
 import {Physics, RigidBody} from "@react-three/rapier";
-import Tree from "../components/tree/Tree.tsx";
 import {CameraHelper} from "../components/CameraHelper.tsx";
 import Atmosphere from "../components/atmosphere/Atmosphere.tsx";
 import {Ocean} from "../components/ocean/Ocean.tsx";
@@ -58,6 +57,31 @@ function Experience() {
             }
         });
     };
+    const centerPolar = Math.PI / 3;      // vertical center
+    const polarRange = Math.PI / 12;      // ±15°
+
+    const centerAzimuth = 0;              // horizontal center
+    const azimuthRange = Math.PI / 6;     // ±30°
+
+
+    useFrame(() => {
+        if (!orbitRef.current || name) return;
+
+        const controls = orbitRef.current;
+        const polar = controls.getPolarAngle();
+
+        const min = centerPolar - polarRange;
+        const max = centerPolar + polarRange;
+
+        if (polar < min || polar > max) {
+            controls.setPolarAngle(
+                THREE.MathUtils.clamp(polar, min, max)
+            );
+            controls.update();
+        }
+    });
+
+
 
 
     return (
@@ -69,10 +93,17 @@ function Experience() {
                 makeDefault
                 enableDamping
                 dampingFactor={0.05}
-                enableZoom={!name}
-                minDistance={5}
-                maxDistance={15}
+                enableZoom={!!name}
                 enablePan={false}
+
+                // Vertical (up / down)
+                minPolarAngle={!name ? centerPolar - polarRange : 0}
+                maxPolarAngle={!name ? centerPolar + polarRange : Math.PI}
+
+                // Horizontal (left / right)
+                minAzimuthAngle={!name ? centerAzimuth - azimuthRange : -Infinity}
+                maxAzimuthAngle={!name ? centerAzimuth + azimuthRange : Infinity}
+
                 mouseButtons={{
                     MIDDLE: THREE.MOUSE.DOLLY,
                     RIGHT: THREE.MOUSE.ROTATE,
@@ -80,13 +111,14 @@ function Experience() {
                 }}
             />
 
+
+
             <Atmosphere/>
 
             <group>
                 <Ocean />
             </group>
             <group>
-                <Tree treeData={models.trees} />
                 {models.model.map((model) => {
                     const vectorPosition = new THREE.Vector3().fromArray(model.position);
                     const vectorRotation = new THREE.Vector3().fromArray(model.rotation);

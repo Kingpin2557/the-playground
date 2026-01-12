@@ -6,7 +6,9 @@ import {Leva} from "leva";
 import WeatherWidget from "./components/widget/WeatherWidget.tsx";
 import InfoWidget from "./components/widget/InfoWidget.tsx";
 import GoBack from "./components/goback/GoBack.tsx";
-import AudioManager from "./components/audio/AudioManager.tsx"; // Import the store hook
+import AudioManager from "./components/audio/AudioManager.tsx";
+import {Suspense} from "react";
+import Intro from "./components/intro/Intro.tsx"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
@@ -25,10 +27,12 @@ function App() {
                     position: defaultSettings.position
                 }}
             >
-            <Routes>
-                <Route path="/" element={<Experience />} />
-                <Route path="/:name" element={<Experience />} />
-            </Routes>
+                <Suspense fallback={<Intro />}>
+                    <Routes>
+                        <Route path="/" element={<Experience />} />
+                        <Route path="/:name" element={<Experience />} />
+                    </Routes>
+                </Suspense>
 
             </Canvas>
             <GoBack/>

@@ -27,7 +27,6 @@ export const Ocean = () => {
     // Explicitly typing the ref to access .uniforms
     const waterMaterialRef = useRef<THREE.ShaderMaterial>(null!);
 
-    const oceanRot: [number, number, number] = [-Math.PI / 2, 0, 0];
 
     useFrame(({ clock }) => {
         if (waterMaterialRef.current) {
@@ -37,7 +36,7 @@ export const Ocean = () => {
     });
 
     return (
-        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.57, 0]}>
             {/* Increase to a massive size like 1000x1000 */}
             <planeGeometry args={[1000, 1000]} />
             <waterMaterial
