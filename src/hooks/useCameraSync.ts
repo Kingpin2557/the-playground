@@ -29,7 +29,7 @@ export function useCameraSync({ scene }: { scene: React.RefObject<THREE.Group | 
     // Proper Zustand store integration
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
 
-    const model = models.find(
+    const model = models.model.find(
         (model) => model.name.toLowerCase() === name?.toLowerCase()
     );
 

@@ -14,6 +14,7 @@ import Floor from "../components/floor/Floor.tsx";
 import models from "../assets/playgrounds.json";
 import {useCameraSync} from "../hooks/useCameraSync.ts";
 import {Physics, RigidBody} from "@react-three/rapier";
+import Tree from "../components/tree/Tree.tsx";
 
 export interface PlaygroundInfo {
     capacity: number;
@@ -78,8 +79,10 @@ function Experience() {
             <directionalLight position={[1, 2, 3]} intensity={4.5} />
             <ambientLight intensity={1} />
 
+            <Tree treeData={models.trees} />
+
                 <group>
-                    {models.map((model) => {
+                    {models.model.map((model) => {
                         const vectorPosition = new THREE.Vector3().fromArray(model.position);
                         const vectorRotation = new THREE.Vector3().fromArray(model.rotation);
                         const isSelected = model.name.toLowerCase() === name?.toLowerCase();
