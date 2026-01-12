@@ -1,0 +1,133 @@
+.intro {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 5, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    color: white;
+    font-family: sans-serif;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10rem;
+
+    width: 100%;
+
+    max-width: 400px;
+    padding: 20px;
+
+    margin-bottom: 10rem;
+
+    h1 {
+        font-size: 4rem;
+
+        min-width: max-content;
+    }
+
+    .textSection {
+        text-align: center;
+    }
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    label {
+        margin: 0;
+    }
+}
+
+/* Horizontal Slider Bar Logic */
+.loaderWrapper {
+    width: 500px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+    overflow: visible; /* Let thumb show outside */
+}
+
+.fill {
+    height: 100%;
+    background: #4ef63b; /* Blue to match your Audio Slider */
+    border-radius: 10px;
+    transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    box-shadow: 0 0 15px rgba(59, 246, 103, 0.5);
+}
+
+.thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: left 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.percentage {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    letter-spacing: 1px;
+}
+
+button {
+    cursor: pointer;
+
+    border: 1px solid #4ef63b;
+
+    background: transparent;
+    color: #ececec;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    transition: background 0.4s ease-in;
+}
+
+.button:hover:not(:disabled) {
+    background: #4ef63b;
+    color: #1a1a1a;
+    transition: background 0.4s ease-in;
+}
+
+
+input {
+ background-color: #4ef63b;
+}
+.pulse {
+    animation: pulse 2s infinite;
+    cursor: pointer;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}

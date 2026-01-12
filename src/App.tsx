@@ -7,38 +7,43 @@ import WeatherWidget from "./components/widget/WeatherWidget.tsx";
 import InfoWidget from "./components/widget/InfoWidget.tsx";
 import GoBack from "./components/goback/GoBack.tsx";
 import AudioManager from "./components/audio/AudioManager.tsx";
-import {Suspense} from "react";
+import {Suspense, useState} from "react";
 import Intro from "./components/intro/Intro.tsx"; // Import the store hook
 
 function App() {
     const defaultSettings = useCameraStore((state) => state.defaultSettings);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [shouldPlayMusic, setShouldPlayMusic] = useState(false); // New state
 
-    const isProduction = import.meta.env.VITE_IS_PRODUCTION === 'true';
+    const handleEnter = () => {
+        setIsLoaded(true);
+        setShouldPlayMusic(true); // Trigger music on user gesture
+    };
 
     return (
         <>
-            <Leva hidden={isProduction}/>
-            <Canvas
-                shadows
-                camera={{
-                    fov: defaultSettings.fov,
-                    near: defaultSettings.near,
-                    far: defaultSettings.far,
-                    position: defaultSettings.position
-                }}
-            >
-                <Suspense fallback={<Intro />}>
+            <Leva hidden={import.meta.env.VITE_IS_PRODUCTION === 'true'}/>
+
+            {!isLoaded && <Intro onComplete={handleEnter} />}
+
+            <Canvas shadows camera={{ ...defaultSettings }}>
+                <Suspense fallback={null}>
                     <Routes>
                         <Route path="/" element={<Experience />} />
                         <Route path="/:name" element={<Experience />} />
                     </Routes>
                 </Suspense>
-
             </Canvas>
-            <GoBack/>
-            <AudioManager />
-            <InfoWidget/>
-            <WeatherWidget/>
+
+            {isLoaded && (
+                <>
+                    <GoBack />
+                    {/* Pass the play state to your manager */}
+                    <AudioManager autoStart={shouldPlayMusic} />
+                    <InfoWidget />
+                    <WeatherWidget />
+                </>
+            )}
         </>
     );
 }

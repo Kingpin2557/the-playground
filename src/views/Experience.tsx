@@ -111,8 +111,6 @@ function Experience() {
                 }}
             />
 
-
-
             <Atmosphere/>
 
             <group>

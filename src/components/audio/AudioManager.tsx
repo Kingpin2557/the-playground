@@ -6,57 +6,55 @@ import { useSeason } from '../../hooks/useSeason';
 
 const BGM_URL = "/audio/soundtrack.mp3";
 
-function AudioManager() {
+// Added prop type for autoStart
+interface AudioManagerProps {
+    autoStart?: boolean;
+}
+
+function AudioManager({ autoStart }: AudioManagerProps) {
     const audioRef = useRef<HTMLAudioElement>(null);
-    const ambienceRef = useRef<HTMLAudioElement>(null);
-    const [volume, setVolume] = useState(0);
+
+    // Initialize volume directly from prop to avoid ESLint cascading render error
+    const [volume, setVolume] = useState(autoStart ? 0.2 : 0);
     const [showSlider, setShowSlider] = useState(false);
     const seasonClass = useSeason(widgetStyles);
 
-    // Bepaal de extra sound laag op basis van de maand
-    const month = new Date().getMonth();
-    const getAmbienceSrc = () => {
-        if (month >= 2 && month <= 4) return "/audio/birds-chirping.mp3";
-        if (month >= 5 && month <= 7) return "/audio/summer-cicadas.mp3";
-        if (month >= 8 && month <= 10) return "/audio/wind-leaves.mp3";
-        return "/audio/cold-wind.mp3";
-    };
+    if (autoStart && volume === 0) {
+        setVolume(0.2);
+    }
 
-    const ambienceSrc = getAmbienceSrc();
-
+    // Audio Engine: Syncs the <audio> element with the volume state
     useEffect(() => {
         const bgm = audioRef.current;
-        const amb = ambienceRef.current;
-        if (!bgm || !amb) return;
+        if (!bgm) return;
 
         bgm.volume = volume;
-        amb.volume = volume * 0.5;
 
         if (volume > 0) {
-            bgm.play().catch(() => {});
-            amb.play().catch(() => {});
+            // Browser allows play because it's tied to the user gesture in Intro
+            bgm.play().catch((err) => {
+                console.warn("Audio playback blocked by browser policy:", err);
+            });
         } else {
             bgm.pause();
-            amb.pause();
         }
     }, [volume]);
 
     return (
-        <div 
+        <div
             className={styles.audioFixedWrapper}
             onMouseEnter={() => setShowSlider(true)}
             onMouseLeave={() => setShowSlider(false)}
         >
             <audio ref={audioRef} src={BGM_URL} loop />
-            <audio ref={ambienceRef} src={ambienceSrc} loop />
-            
+
             <div className={`${styles.sliderContainer} ${showSlider ? styles.visible : ''}`}>
-                <input 
-                    type="range" 
-                    min="0" 
-                    max="1" 
-                    step="0.01" 
-                    value={volume} 
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
                     onChange={(e) => setVolume(parseFloat(e.target.value))}
                     className={styles.volumeSlider}
                     style={{
@@ -65,9 +63,10 @@ function AudioManager() {
                 />
             </div>
 
-            <button 
-                className={`${styles.muteButton} ${seasonClass}`} 
+            <button
+                className={`${styles.muteButton} ${seasonClass}`}
                 onClick={() => setVolume(volume > 0 ? 0 : 0.5)}
+                aria-label={volume > 0 ? "Mute" : "Unmute"}
             >
                 {volume > 0 ? <Volume2 size={20} /> : <VolumeX size={20} />}
             </button>
