@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Experience from "./views/Experience.tsx";
 import { useCameraStore } from "./store/useCameraStore.ts";
 import {Leva} from "leva";
-import {CameraHelper} from "./components/CameraHelper.tsx";
 import WeatherWidget from "./components/widget/WeatherWidget.tsx";
 import InfoWidget from "./components/widget/InfoWidget.tsx";
 import GoBack from "./components/goback/GoBack.tsx";
@@ -18,6 +17,7 @@ function App() {
         <>
             <Leva hidden={isProduction}/>
             <Canvas
+                shadows
                 camera={{
                     fov: defaultSettings.fov,
                     near: defaultSettings.near,
@@ -25,11 +25,11 @@ function App() {
                     position: defaultSettings.position
                 }}
             >
-                <Routes>
-                    <Route path="/" element={<Experience />} />
-                    <Route path="/:name" element={<Experience />} />
-                </Routes>
-                <CameraHelper />
+            <Routes>
+                <Route path="/" element={<Experience />} />
+                <Route path="/:name" element={<Experience />} />
+            </Routes>
+
             </Canvas>
             <GoBack/>
             <AudioManager />

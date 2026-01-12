@@ -54,8 +54,39 @@
 }
 
 .labelSummer {
-    --season-color: #fff9c4;
-    --season-text: #f57f17;
+    /* 1. Use a white base with opacity for better text contrast */
+    background: rgba(255, 255, 255, 0.85);
+
+    /* 2. Glassmorphism effect to make it pop against the 3D scene */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* 3. Darker yellow/gold border for better definition */
+    border: 2px solid #fdd835;
+
+    /* 4. Subtle glow using a darker orange/yellow */
+    box-shadow: 0 4px 15px rgba(245, 127, 23, 0.2);
+
+    /* Variables for children */
+    --season-color: #fdd835;
+    --season-text: #e65100; /* Darker orange for better WCAG contrast */
+}
+
+/* Force children to use the high-contrast text color */
+.labelSummer h3,
+.labelSummer span,
+.labelSummer .label {
+    color: var(--season-text) !important;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5); /* Helps visibility */
+    font-weight: 700;
+    min-width: max-content;
+}
+
+/* Ensure the hover doesn't wash out the text */
+.labelSummer:hover {
+    background: #fffde7;
+    border-color: #fbc02d;
+    box-shadow: 0 6px 20px rgba(245, 127, 23, 0.3);
 }
 
 .labelAutumn {

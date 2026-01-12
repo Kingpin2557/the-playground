@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
-import { useControls, button } from "leva";
+import { useControls, button, folder } from "leva";
 import * as THREE from "three";
+import { useState } from "react";
 
 interface TreeData {
     id: number;
@@ -13,9 +14,7 @@ interface TreeData {
 
 function TreeInstance({ data }: { data: TreeData }) {
     const { scene } = useGLTF(data.path);
-
-    // Using the ID and Name from JSON to ensure unique folders in GUI
-    const folderName = `Trees.${data.name} (ID: ${data.id})`;
+    const folderPath = `Trees.${data.name} (ID: ${data.id})`;
 
     let mesh: THREE.Mesh | undefined;
     scene.traverse((child) => {
@@ -24,23 +23,31 @@ function TreeInstance({ data }: { data: TreeData }) {
         }
     });
 
-    const [controls] = useControls(folderName, () => ({
-        pos: {
-            value: { x: data.position[0], y: data.position[1], z: data.position[2] },
-            step: 0.1
-        },
-        rotY: { value: data.rotation[1], min: 0, max: 360, step: 1 },
-        scale: { value: data.scale, min: 0.1, max: 10, step: 0.01 },
-        "Log Values": button((get) => {
-            const p = get(`${folderName}.pos`);
-            const r = get(`${folderName}.rotY`);
-            const s = get(`${folderName}.scale`);
+    const [controls] = useControls(() => ({
+        Trees: folder({
+            [`${data.name} (ID: ${data.id})`]: folder({
+                pos: {
+                    value: { x: data.position[0], y: data.position[1], z: data.position[2] },
+                    step: 0.1
+                },
+                rotY: {
+                    value: THREE.MathUtils.radToDeg(data.rotation[1]),
+                    min: 0,
+                    max: 360,
+                    step: 1
+                },
+                scale: { value: data.scale, min: 0.1, max: 10, step: 0.01 },
+                "Log Values": button((get) => {
+                    const p = get(`${folderPath}.pos`);
+                    const r = get(`${folderPath}.rotY`);
+                    const s = get(`${folderPath}.scale`);
 
-            console.log(`--- DATA FOR ${data.name} ---`);
-            console.log(`Position -> X: ${p.x}, Y: ${p.y}, Z: ${p.z}`);
-            console.log(`Rotation -> Y: ${r}°`);
-            console.log(`Scale    -> ${s}`);
-            console.log(`---------------------------`);
+                    console.log(`-- ${data.name} (ID: ${data.id}) --`);
+                    console.log(`position: [${p.x.toFixed(2)}, ${p.y.toFixed(2)}, ${p.z.toFixed(2)}]`);
+                    console.log(`rotation: [0.00, ${THREE.MathUtils.degToRad(r).toFixed(2)}, 0.00]`);
+                    console.log(`scale: ${s}`);
+                })
+            }, { collapsed: true })
         })
     }));
 
@@ -74,9 +81,28 @@ function TreeInstance({ data }: { data: TreeData }) {
 }
 
 export default function Tree({ treeData }: { treeData: TreeData[] }) {
+    const [trees, setTrees] = useState<TreeData[]>(treeData);
+
+    useControls(() => ({
+        Trees: folder({
+            "Spawn Temporary Tree": button(() => {
+                const newId = trees.length > 0 ? Math.max(...trees.map(t => t.id)) + 1 : 100;
+                const newTree: TreeData = {
+                    id: newId,
+                    name: "Temp Tree",
+                    path: treeData[0]?.path || './floor/tree.glb',
+                    position: [0, 0, 0],
+                    rotation: [0, 0, 0],
+                    scale: 1
+                };
+                setTrees([...trees, newTree]);
+            })
+        }, { order: -1 })
+    }));
+
     return (
         <>
-            {treeData.map((tree) => (
+            {trees.map((tree) => (
                 <TreeInstance key={tree.id} data={tree} />
             ))}
         </>
