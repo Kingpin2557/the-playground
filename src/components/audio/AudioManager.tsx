@@ -19,9 +19,6 @@ function AudioManager({ autoStart }: AudioManagerProps) {
     const [showSlider, setShowSlider] = useState(false);
     const seasonClass = useSeason(widgetStyles);
 
-    if (autoStart && volume === 0) {
-        setVolume(0.2);
-    }
 
     // Audio Engine: Syncs the <audio> element with the volume state
     useEffect(() => {
