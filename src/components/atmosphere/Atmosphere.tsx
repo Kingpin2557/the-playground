@@ -62,7 +62,14 @@ function Atmosphere() {
                 color={sunColor}
                 castShadow
                 shadow-mapSize={[2048, 2048]}
-                shadow-bias={0}
+                shadow-bias={-0.0005}
+                shadow-normalBias={0.02}
+                shadow-camera-near={ 1 }
+                shadow-camera-far={ 10 }
+                shadow-camera-top={ 2 }
+                shadow-camera-right={ 2 }
+                shadow-camera-bottom={ - 2 }
+                shadow-camera-left={ - 2 }
             />
 
             <ambientLight intensity={0.4} color="#ddecff" />
