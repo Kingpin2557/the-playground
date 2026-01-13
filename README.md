@@ -1,75 +1,48 @@
-# React + TypeScript + Vite
+# the-playground 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### What's this all about?
+**the-playground** is my personal 3D sandbox built as a school assignment. The goal was to combine 3D modeling skills with web development to create a functional, interactive environment. It’s where I mess around with shaders, custom models, and camera animations. I built it to be modular, focusing on a clean dev experience without all the unnecessary bloat.
 
-Currently, two official plugins are available:
+### Technical Stuff
+I’m using a modern 3D stack and some pretty specific coding rules to keep things snappy:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Framework:** [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) (for that sweet type-safety).
+* **Rendering:** [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) to bring Three.js into the React world.
+* **Shaders:** Using the [Lygia Shader Library](https://lygia.xyz/) for the heavy math, plus a custom water shader based on vertex displacement and noise.
+* **State Management:** A central store (Zustand) handles the camera targets and scene states.
+* **The "No useMemo" Rule:** I explicitly avoid the `useMemo()` hook. I prefer keeping logic predictable through smart component scoping instead.
+* **Tools:** * [Leva](https://github.com/pmndrs/leva) for live tweaking (hidden automatically when `isProduction` is true).
+    * [@react-three/drei](https://github.com/pmndrs/drei) for text and helper components.
 
-## React Compiler
+### Credits
+* **Models:** Most of the 3D models are my own work, made specifically for this project.
+* **The Floor (Disclaimer):** The terrain/floor model was made following a Blender Geometry Nodes tutorial. Honestly, I lost the link to the original video during development, so if it looks familiar, credits to that unknown creator!
+* **Water Shader:** Shout out to the [Wawa Sensei Water Shader tutorial](https://wawasensei.dev/courses/react-three-fiber/lessons/water-shader) for the inspiration and foundation.
+* **Textures & Assets:** Various procedural textures generated using Lygia.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### How to run it locally
+Want to take it for a spin? Here’s how:
 
-Note: This will impact Vite dev & build performances.
+1.  **Clone the repo:**
+    ```bash
+    git clone [repository-url]
+    cd the-playground
+    ```
 
-## Expanding the ESLint configuration
+2.  **Grab the dependencies:**
+    ```bash
+    npm install
+    ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3.  **Environment Variables:**
+    Create a `.env` file in the root to set your `isProduction` flag and other bits.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+4.  **Fire it up:**
+    ```bash
+    npm run dev
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+5.  **Build for production:**
+    ```bash
+    npm run build
+    ```
